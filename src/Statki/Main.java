@@ -100,14 +100,14 @@ public class Main extends Application {
 
     private void ustawienieZdjec() {
         tlo = new ImageView();
-        tlo.setImage(new Image(getClass().getResource("/obrazy/tlo.png").toExternalForm()));
+        tlo.setImage(new Image(getClass().getResource("tlo.png").toExternalForm()));
         tlo.setFitWidth(800.0);
         tlo.setFitHeight(600.0);
         tlo.setId("tlo");
         tlo.setOpacity(0.5);
 
         planszaI = new ImageView();
-        planszaI.setImage(new Image(getClass().getResource("/obrazy/plansza.png").toExternalForm()));
+        planszaI.setImage(new Image(getClass().getResource("plansza.png").toExternalForm()));
         planszaI.setLayoutX(50.0);
         planszaI.setLayoutY(200.0);
         planszaI.setFitHeight(291.0);
@@ -115,7 +115,7 @@ public class Main extends Application {
         planszaI.setSmooth(false);
 
         planszaII = new ImageView();
-        planszaII.setImage(new Image(getClass().getResource("/obrazy/plansza.png").toExternalForm()));
+        planszaII.setImage(new Image(getClass().getResource("plansza.png").toExternalForm()));
         planszaII.setLayoutX(447.0);
         planszaII.setLayoutY(200.0);
         planszaII.setFitHeight(291.0);
