@@ -21,8 +21,8 @@ public class Statek extends Parent{
 
         HBox hbox = new HBox();
         for (int i = 0; i < typ; i++) {
-            Rectangle pole = new Rectangle(25, 25);
-            pole.setFill(null);
+            Rectangle pole = new Rectangle(26, 25);
+            pole.setFill(Color.BROWN);
             pole.setStroke(Color.BLACK);
             hbox.getChildren().add(pole);
         }
