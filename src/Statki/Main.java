@@ -78,7 +78,7 @@ public class Main extends Application {
 
                 c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->
                 {
-                    dodajStatkiG(typ,ilosc,event.getButton() == MouseButton.PRIMARY,event);
+                    new Statek(typ,event.getButton() == MouseButton.PRIMARY,event,this);
                     if((typ==4&&ilosc==1)||(typ==3&&ilosc==2)||(typ==2&&ilosc==3)||(typ==1&&ilosc==4)){
                         typ--;
                         ilosc=0;
