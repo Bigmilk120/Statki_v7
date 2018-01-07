@@ -42,11 +42,8 @@ public class Main extends Application {
     public boolean rozpoczecie = false;
 
 
-    public void dodajStatkiG(int typ, boolean poz, MouseEvent event){
-
+    public void dodajStatkiG(int typ, int ilosc, boolean poz, MouseEvent event){
         Pole p3 = (Pole)event.getSource();
-
-
         if(poz)
         {
             for (int i = 0; i < typ; i++) {
@@ -64,8 +61,6 @@ public class Main extends Application {
                 p4.setStroke(Color.BLACK);
             }
         }
-
-
     }
 
 
@@ -83,9 +78,12 @@ public class Main extends Application {
 
                 c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->
                 {
-                    dodajStatkiG(typ,event.getButton() == MouseButton.PRIMARY,event);
-                     typ--;
-
+                    dodajStatkiG(typ,ilosc,event.getButton() == MouseButton.PRIMARY,event);
+                    if((typ==4&&ilosc==1)||(typ==3&&ilosc==2)||(typ==2&&ilosc==3)||(typ==1&&ilosc==4)){
+                        typ--;
+                        ilosc=0;
+                    }
+                        ilosc++;
                 });
             }
 
