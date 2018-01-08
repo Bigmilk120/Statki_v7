@@ -41,7 +41,39 @@ public class Main extends Application {
 
     public boolean rozpoczecie = false;
 
-
+    
+    boolean sprawdz(int x,int y, int dl, boolean poziomo,Main plansza){
+        
+        if(poziomo){
+            for(int i=0;i<dl;i++){
+                if(plansza.getPole(x+i, y).getFill()==Color.BROWN)
+                    return false;
+                else{
+                    if(plansza.getPole(x+i,y-1).getFill()==Color.BROWN||plansza.getPole(x+i,y+1).getFill()==Color.BROWN)
+                        return false;
+                    else{
+                        if(plansza.getPole(x-1,y).getFill()==Color.BROWN||plansza.getPole(x-1,y-1).getFill()==Color.BROWN||plansza.getPole(x-1,y+1).getFill()==Color.BROWN||plansza.getPole(x+dl,y).getFill()==Color.BROWN||plansza.getPole(x+dl,y-1).getFill()==Color.BROWN||plansza.getPole(x+dl,y+1).getFill()==Color.BROWN)
+                            return false;
+                    }
+                }
+            }
+        }else{
+            for(int i=0;i<dl;i++){
+                if(plansza.getPole(x,y+i).getFill()==Color.BROWN)
+                    return false;
+                else{
+                    if(plansza.getPole(x-1,y+i).getFill()==Color.BROWN||plansza.getPole(x+1,y+i).getFill()==Color.BROWN)
+                        return false;
+                    else{
+                        if(plansza.getPole(x,y-1).getFill()==Color.BROWN||plansza.getPole(x-1,y-1).getFill()==Color.BROWN||plansza.getPole(x+1,y-1).getFill()==Color.BROWN||plansza.getPole(x,y+dl).getFill()==Color.BROWN||plansza.getPole(x-1,y+dl).getFill()==Color.BROWN||plansza.getPole(x+1,y+dl).getFill()==Color.BROWN)
+                            return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    
     public void dodajStatkiG(int typ, int ilosc, boolean poz, MouseEvent event){
         Pole p3 = (Pole)event.getSource();
         if(poz)
@@ -78,13 +110,18 @@ public class Main extends Application {
 
                 c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->
                 {
+                    try{
                     new Statek(typ,event.getButton() == MouseButton.PRIMARY,event,this);
+                    }catch(Exception e){
+                        ilosc--;
+                    }
                     if((typ==4&&ilosc==1)||(typ==3&&ilosc==2)||(typ==2&&ilosc==3)||(typ==1&&ilosc==4)){
                         typ--;
                         ilosc=0;
                     }
                         ilosc++;
                 });
+               
             }
 
             planszaG.getChildren().add(row);

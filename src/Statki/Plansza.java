@@ -25,25 +25,22 @@ public class Plansza extends Parent{
         public int x, y;
         public Statek statek = null;
         public boolean wasShot = false;
-        double layoutX ;
-        double layoutY ;
 
         private Plansza plansza;
-
-        public Pole(int x, int y, double lX, double lY) {
-            super(x,y,26, 25);
-            this.x = x;
-            this.y = y;
-            this.layoutX = lX;
-            this.layoutY = lY;
-            setFill(Color.LIGHTGRAY);
-            setStroke(Color.BLACK);
-        }
 
         public Pole(int x, int y) {
             super(x,y,26, 25);
             this.x = x;
             this.y = y;
+            setFill(Color.LIGHTGRAY);
+            setStroke(Color.BLACK);
+        }
+
+        public Pole(int x, int y, Statek statek) {
+            super(x,y,26, 25);
+            this.x = x;
+            this.y = y;
+            this.statek=statek;
             setFill(Color.LIGHTGRAY);
             setStroke(Color.BLACK);
         }
