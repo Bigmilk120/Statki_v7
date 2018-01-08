@@ -305,6 +305,9 @@ public class Main extends Application {
         Scene scene = new Scene(gvk());
         primaryStage.setTitle("Gracz kontra Komputer");
         primaryStage.setScene(scene);
+        primaryStage.setWidth(806.0);
+        primaryStage.setHeight(630.0);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

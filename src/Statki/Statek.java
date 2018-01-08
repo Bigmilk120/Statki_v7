@@ -70,6 +70,7 @@ public class Statek extends Parent{
             }
         }else
         {
+
            if(sprawdz(p3.x,p3.y,typ,false,plansza))
             for (int i = 0; i < typ; i++) {
                 Plansza.Pole p4 = plansza.getPole(p3.x, p3.y,plansza.planszaG);
