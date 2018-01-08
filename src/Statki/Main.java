@@ -143,10 +143,14 @@ public class Main extends Application {
         layoutX = 0.5;
         layoutY = 0.5;
 
-        for (int y = 0; y < 10; y++) {
+        for (int y = 0; y < 12; y++) {
             HBox row = new HBox();
-            for (int x = 0; x < 10; x++) {
+            if(y==0||y==11)
+                row.setVisible(false);
+            for (int x = 0; x < 12; x++) {
                 Pole c = new Pole(x, y);
+                if(x==0||x==11)
+                    c.setVisible(false);
                 row.getChildren().add(c);
             }
 
@@ -159,8 +163,8 @@ public class Main extends Application {
                 //    if(event.getButton() == MouseButton.SECONDARY)  pole.setFill(Color.DARKBLUE);
 
                 //});
-        planszaK.setLayoutX(477.0);
-        planszaK.setLayoutY(228.0);
+        planszaK.setLayoutX(450.0);
+        planszaK.setLayoutY(201.0);
         planszaK.setPrefHeight(291);
         planszaK.setPrefWidth(308);
 
