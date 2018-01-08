@@ -16,6 +16,7 @@ public class Plansza extends Parent{
     private GridPane plansza = new GridPane();
     public boolean przeciwnik = true;
     public int statki = 4;
+    public static int iloscStatkow = 10;
     
     public Plansza(){
     }
@@ -43,8 +44,7 @@ public class Plansza extends Parent{
             this.statek=statek;
             setFill(Color.LIGHTGRAY);
             setStroke(Color.BLACK);
-        }
-
+        } 
     }
 
 }

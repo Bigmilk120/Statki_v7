@@ -22,6 +22,8 @@ import javafx.scene.image.*;
 
 import Statki.Plansza.Pole;
 import Statki.Plansza.Pole.*;
+import static Statki.Plansza.iloscStatkow;
+import java.util.ArrayList;
 import java.util.Random;
 
 import static javafx.scene.input.MouseEvent.*;
@@ -31,14 +33,13 @@ public class Main extends Application {
     public ImageView tlo;
     public ImageView planszaI;
     public ImageView planszaII;
-    public Plansza gracz, komputer;
-    double layoutX = 0.5;
-    double layoutY = 0.5;
     Pole pole2;
     VBox planszaG;
     VBox planszaK;
     int typ = 4;
     int ilosc = 1;
+    int iloscStatkow = 10;
+    public ArrayList<Statek> tabStatkow = new ArrayList<Statek>();
   
     int[][] Komputer = new int[12][12];
     
@@ -65,9 +66,10 @@ public class Main extends Application {
             // Deklarowanie statku (4-pola)
             for(int i=0;i<dl;i++) {
                 Komputer[X_los+i][Y_los] = 1;
-                getPole(X_los+i,Y_los,planszaK).setFill(Color.BROWN);
+               // getPole(X_los+i,Y_los,planszaK).setFill(Color.BROWN);
             }
-            //new Statek(X_los,Y_los,dl,true,this,planszaK);
+            Statek s = new Statek(X_los,Y_los,dl,true,this,planszaK);
+            tabStatkow.add(s);
 
 
             // Statek pionowo
@@ -86,34 +88,30 @@ public class Main extends Application {
             for(int i=0;i<dl;i++)
             {
                 Komputer[X_los][Y_los+i] = 1;
-                getPole(X_los,Y_los+i,planszaK).setFill(Color.BROWN);
+                //getPole(X_los,Y_los+i,planszaK).setFill(Color.BROWN);
             }
-            //new Statek(X_los,Y_los,dl,false,this,planszaK);
-
-
-
+            Statek s = new Statek(X_los,Y_los,dl,false,this,planszaK);
+            tabStatkow.add(s);
         }
-
-     
-        
     }
-  
+
     public void ustawStatkiK(){
 
         losuj_statek(4);
 
         for(int i =0 ;i<2;i++)
-        losuj_statek(3);
+            losuj_statek(3);
 
-        for(int i =0 ;i<3;i++)
-        losuj_statek(2);
+        for(int i =0 ;i<3;i++)    
+            losuj_statek(2);
 
         for(int i =0 ;i<4;i++)
-        losuj_statek(1);
+            losuj_statek(1);
+   
     }
    
     boolean sprawdz(int x,int y, int dl, boolean poziomo,VBox plansza){
-        
+
         if(poziomo){
             for(int i=0;i<dl;i++){
                 if(this.getPole(x+i, y,plansza).getFill()==Color.BROWN || this.getPole(x+i, y,plansza) == null)
@@ -143,7 +141,7 @@ public class Main extends Application {
         }
         return true;
     }
-    
+
     public void dodajStatkiG(int typ, int ilosc, boolean poz, MouseEvent event){
         Pole p3 = (Pole)event.getSource();
         if(poz)
@@ -174,33 +172,33 @@ public class Main extends Application {
             if(y==0||y==11)
                 row.setVisible(false);
             for (int x = 0; x < 12; x++) {
-                
+
                 Pole c = new Pole(x, y);
                 if(x==0||x==11)
                     c.setVisible(false);
-                    row.getChildren().add(c);
+                row.getChildren().add(c);
 
                 c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->
                 {
                     try{
-                                Plansza.Pole p = (Plansza.Pole)event.getSource();
-                           if(sprawdz(p.x,p.y,typ,event.getButton() == MouseButton.PRIMARY,planszaG))
-                            new Statek(typ,event.getButton() == MouseButton.PRIMARY,event,this);
-                           else
-                               ilosc--;
-                            if((typ==4&&ilosc==1)||(typ==3&&ilosc==2)||(typ==2&&ilosc==3)||(typ==1&&ilosc==4)){
-                                typ--;
-                                ilosc=0;
-                            }
-                                ilosc++;
-                                
-                               
-                                
+                        Plansza.Pole p = (Plansza.Pole)event.getSource();
+                        if(sprawdz(p.x,p.y,typ,event.getButton() == MouseButton.PRIMARY,planszaG))
+                            new Statek(typ,event.getButton() == MouseButton.PRIMARY,event,this,planszaG);
+                        else
+                            ilosc--;
+                        if((typ==4&&ilosc==1)||(typ==3&&ilosc==2)||(typ==2&&ilosc==3)||(typ==1&&ilosc==4)){
+                            typ--;
+                            ilosc=0;
+                        }
+                        ilosc++;
+
+
+
                     }catch(Exception e){}
-                   
+
                 });
-                }
-            
+            }
+
 
             planszaG.getChildren().add(row);
         }
@@ -212,7 +210,7 @@ public class Main extends Application {
 
     }
 
-    public void dodajPlanszeKomputer(){
+     public void dodajPlanszeKomputer(){
 
         planszaK = new VBox();
 
@@ -225,22 +223,24 @@ public class Main extends Application {
                 Pole c = new Pole(x, y);
                 if(x==0||x==11)
                     c.setVisible(false);
-                
-               c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
 
-                        Pole p = (Pole)event.getSource();
+                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
 
-                        if(Komputer[p.x][p.y] == 1)
-                            getPole(p.x,p.y,planszaK).setFill(Color.RED);
-                        else
-                            getPole(p.x,p.y,planszaK).setFill(Color.BLACK);
-                    });
-                
-                row.getChildren().add(c);              
+                    Pole p = (Pole)event.getSource();
+
+                    if(Komputer[p.x][p.y] == 1)
+                    {
+                        getPole(p.x,p.y,planszaK).setFill(Color.RED);
+                    }                      
+                    else
+                        getPole(p.x,p.y,planszaK).setFill(Color.BLACK);
+                });
+
+                row.getChildren().add(c);
             }
 
             planszaK.getChildren().add(row);
-        
+
         }
 
         planszaK.setLayoutX(450.0);
@@ -278,6 +278,19 @@ public class Main extends Application {
     public Pole getPole(int x, int y,VBox plansza) {
         return (Pole)((HBox)plansza.getChildren().get(y)).getChildren().get(x);
     }
+    
+    public boolean koniecGry(Statek statek){
+              
+            statek.iloscPkt--;
+            
+            if(statek.iloscPkt == 0 )
+                iloscStatkow--;
+            
+            if(iloscStatkow == 0)
+                return true;
+            
+            return false;
+        }
 
     private Parent gvk(){
 
