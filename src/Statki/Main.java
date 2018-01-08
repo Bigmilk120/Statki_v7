@@ -147,10 +147,14 @@ public class Main extends Application {
         layoutX = 0.5;
         layoutY = 0.5;
 
-        for (int y = 0; y < 10; y++) {
+        for (int y = 0; y < 12; y++) {
             HBox row = new HBox();
-            for (int x = 0; x < 10; x++) {
+            if(y==0||y==11)
+                row.setVisible(false);
+            for (int x = 0; x < 12; x++) {
                 Pole c = new Pole(x, y);
+                if(x==0||x==11)
+                    c.setVisible(false);
                 row.getChildren().add(c);
             }
 
