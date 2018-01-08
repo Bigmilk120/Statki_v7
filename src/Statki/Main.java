@@ -42,30 +42,30 @@ public class Main extends Application {
     public boolean rozpoczecie = false;
 
     
-    boolean sprawdz(int x,int y, int dl, boolean poziomo,Main plansza){
+    boolean sprawdz(int x,int y, int dl, boolean poziomo){
         
         if(poziomo){
             for(int i=0;i<dl;i++){
-                if(plansza.getPole(x+i, y).getFill()==Color.BROWN)
+                if(this.getPole(x+i, y).getFill()==Color.BROWN)
                     return false;
                 else{
-                    if(plansza.getPole(x+i,y-1).getFill()==Color.BROWN||plansza.getPole(x+i,y+1).getFill()==Color.BROWN)
+                    if(this.getPole(x+i,y-1).getFill()==Color.BROWN||this.getPole(x+i,y+1).getFill()==Color.BROWN)
                         return false;
                     else{
-                        if(plansza.getPole(x-1,y).getFill()==Color.BROWN||plansza.getPole(x-1,y-1).getFill()==Color.BROWN||plansza.getPole(x-1,y+1).getFill()==Color.BROWN||plansza.getPole(x+dl,y).getFill()==Color.BROWN||plansza.getPole(x+dl,y-1).getFill()==Color.BROWN||plansza.getPole(x+dl,y+1).getFill()==Color.BROWN)
+                        if(this.getPole(x-1,y).getFill()==Color.BROWN||this.getPole(x-1,y-1).getFill()==Color.BROWN||this.getPole(x-1,y+1).getFill()==Color.BROWN||this.getPole(x+dl,y).getFill()==Color.BROWN||this.getPole(x+dl,y-1).getFill()==Color.BROWN||this.getPole(x+dl,y+1).getFill()==Color.BROWN)
                             return false;
                     }
                 }
             }
         }else{
             for(int i=0;i<dl;i++){
-                if(plansza.getPole(x,y+i).getFill()==Color.BROWN)
+                if(this.getPole(x,y+i).getFill()==Color.BROWN)
                     return false;
                 else{
-                    if(plansza.getPole(x-1,y+i).getFill()==Color.BROWN||plansza.getPole(x+1,y+i).getFill()==Color.BROWN)
+                    if(this.getPole(x-1,y+i).getFill()==Color.BROWN||this.getPole(x+1,y+i).getFill()==Color.BROWN)
                         return false;
                     else{
-                        if(plansza.getPole(x,y-1).getFill()==Color.BROWN||plansza.getPole(x-1,y-1).getFill()==Color.BROWN||plansza.getPole(x+1,y-1).getFill()==Color.BROWN||plansza.getPole(x,y+dl).getFill()==Color.BROWN||plansza.getPole(x-1,y+dl).getFill()==Color.BROWN||plansza.getPole(x+1,y+dl).getFill()==Color.BROWN)
+                        if(this.getPole(x,y-1).getFill()==Color.BROWN||this.getPole(x-1,y-1).getFill()==Color.BROWN||this.getPole(x+1,y-1).getFill()==Color.BROWN||this.getPole(x,y+dl).getFill()==Color.BROWN||this.getPole(x-1,y+dl).getFill()==Color.BROWN||this.getPole(x+1,y+dl).getFill()==Color.BROWN)
                             return false;
                     }
                 }
@@ -115,11 +115,10 @@ public class Main extends Application {
 
                 c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->
                 {
-                    try{
+                   Plansza.Pole p = (Plansza.Pole)event.getSource();
+                   if(sprawdz(p.x,p.y,typ,true))
                     new Statek(typ,event.getButton() == MouseButton.PRIMARY,event,this);
-                    }catch(Exception e){
-                        ilosc--;
-                    }
+                   
                     if((typ==4&&ilosc==1)||(typ==3&&ilosc==2)||(typ==2&&ilosc==3)||(typ==1&&ilosc==4)){
                         typ--;
                         ilosc=0;
