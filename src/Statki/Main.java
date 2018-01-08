@@ -104,9 +104,13 @@ public class Main extends Application {
 
         for (int y = 0; y < 12; y++) {
             HBox row = new HBox();
+            if(y==0||y==11)
+                row.setVisible(false);
             for (int x = 0; x < 12; x++) {
-                if(x!=0||x!=11){
+                
                 Pole c = new Pole(x, y);
+                if(x==0||x==11)
+                    c.setVisible(false);
                     row.getChildren().add(c);
 
                 c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->
@@ -123,13 +127,13 @@ public class Main extends Application {
                         ilosc++;
                 });
                 }
-            }
+            
 
             planszaG.getChildren().add(row);
         }
 
-        planszaG.setLayoutX(80.0);
-        planszaG.setLayoutY(228.0);
+        planszaG.setLayoutX(52.0);
+        planszaG.setLayoutY(202.0);
         planszaG.setPrefHeight(291);
         planszaG.setPrefWidth(308);
 
