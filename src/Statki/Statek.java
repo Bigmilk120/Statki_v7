@@ -61,7 +61,6 @@ public class Statek extends Parent{
         
         if(poz)
         {
-            if(sprawdz(p3.x,p3.y,typ,true,planszaG))
             for (int i = 0; i < typ; i++) {
                 Plansza.Pole p4 = planszaG.getPole(p3.x,p3.y);
                 p3.x++;
@@ -70,7 +69,6 @@ public class Statek extends Parent{
             }
         }else
         {
-           if(sprawdz(p3.x,p3.y,typ,false,planszaG))
             for (int i = 0; i < typ; i++) {
                 Plansza.Pole p4 = planszaG.getPole(p3.x, p3.y);
                 p3.y++;
