@@ -116,8 +116,10 @@ public class Main extends Application {
                 c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->
                 {
                    Plansza.Pole p = (Plansza.Pole)event.getSource();
-                   if(sprawdz(p.x,p.y,typ,true))
+                   if(sprawdz(p.x,p.y,typ,event.getButton()==MouseButton.PRIMARY))
                     new Statek(typ,event.getButton() == MouseButton.PRIMARY,event,this);
+                   else
+                       ilosc--;
                    
                     if((typ==4&&ilosc==1)||(typ==3&&ilosc==2)||(typ==2&&ilosc==3)||(typ==1&&ilosc==4)){
                         typ--;
