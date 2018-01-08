@@ -1,5 +1,5 @@
 package Statki;
-
+ 
 import Statki.Plansza.Pole;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseButton;
