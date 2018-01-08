@@ -65,7 +65,7 @@ public class Main extends Application {
             // Deklarowanie statku (4-pola)
             for(int i=0;i<dl;i++) {
                 Komputer[X_los+i][Y_los] = 1;
-                getPole(X_los+i,Y_los,planszaK).setFill(Color.BROWN);
+                //getPole(X_los+i,Y_los,planszaK).setFill(Color.BROWN);
             }
             //new Statek(X_los,Y_los,dl,true,this,planszaK);
 
@@ -86,7 +86,7 @@ public class Main extends Application {
             for(int i=0;i<dl;i++)
             {
                 Komputer[X_los][Y_los+i] = 1;
-                getPole(X_los,Y_los+i,planszaK).setFill(Color.BROWN);
+                //getPole(X_los,Y_los+i,planszaK).setFill(Color.BROWN);
             }
             //new Statek(X_los,Y_los,dl,false,this,planszaK);
 
