@@ -97,7 +97,6 @@ public class Main extends Application {
 
     public void dodajPlanszeGracz(){
 
-
         planszaG = new VBox();
 
         for (int y = 0; y < 12; y++) {
@@ -157,12 +156,6 @@ public class Main extends Application {
             planszaK.getChildren().add(row);
         }
 
-                // pole.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
-
-                //   if(event.getButton() == MouseButton.PRIMARY)  pole.setFill(Color.DARKGRAY);
-                //    if(event.getButton() == MouseButton.SECONDARY)  pole.setFill(Color.DARKBLUE);
-
-                //});
         planszaK.setLayoutX(450.0);
         planszaK.setLayoutY(201.0);
         planszaK.setPrefHeight(291);
@@ -208,28 +201,7 @@ public class Main extends Application {
         dodajPlanszeGracz();
         dodajPlanszeKomputer();
 
-    /*  planszaK.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                for(Node node : planszaK.getChildren())
-
-            }
-        });
-
-      */
         System.out.println(getPole(2,3));
-
-
-      /*  planszaG.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-                Pole pole = (Pole) event.getSource();
-                pole.setFill(Color.DARKGRAY);
-            }
-        });*/
-
-
 
         root.getChildren().add(tlo);
         root.getChildren().add(planszaI);
