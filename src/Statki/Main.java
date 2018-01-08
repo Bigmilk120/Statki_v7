@@ -94,9 +94,10 @@ public class Main extends Application {
 
         }
 
-
+     
+        
     }
-
+  
     public void ustawStatkiK(){
 
         losuj_statek(4);
