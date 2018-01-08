@@ -46,7 +46,7 @@ public class Main extends Application {
         
         if(poziomo){
             for(int i=0;i<dl;i++){
-                if(this.getPole(x+i, y).getFill()==Color.BROWN)
+                if(this.getPole(x+i, y).getFill()==Color.BROWN || this.getPole(x+i, y) == null)
                     return false;
                 else{
                     if(this.getPole(x+i,y-1).getFill()==Color.BROWN||this.getPole(x+i,y+1).getFill()==Color.BROWN)
@@ -95,8 +95,6 @@ public class Main extends Application {
         }
     }
 
-
-
     public void dodajPlanszeGracz(){
 
 
@@ -116,7 +114,7 @@ public class Main extends Application {
                 c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->
                 {
                    Plansza.Pole p = (Plansza.Pole)event.getSource();
-                   if(sprawdz(p.x,p.y,typ,true))
+                   if(sprawdz(p.x,p.y,typ,event.getButton() == MouseButton.PRIMARY))
                     new Statek(typ,event.getButton() == MouseButton.PRIMARY,event,this);
                    
                     if((typ==4&&ilosc==1)||(typ==3&&ilosc==2)||(typ==2&&ilosc==3)||(typ==1&&ilosc==4)){
