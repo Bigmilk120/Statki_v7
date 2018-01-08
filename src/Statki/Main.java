@@ -46,7 +46,7 @@ public class Main extends Application {
         
         if(poziomo){
             for(int i=0;i<dl;i++){
-                if(this.getPole(x+i, y).getFill()==Color.BROWN)
+                if(this.getPole(x+i, y).getFill()==Color.BROWN || this.getPole(x+i, y) == null)
                     return false;
                 else{
                     if(this.getPole(x+i,y-1).getFill()==Color.BROWN||this.getPole(x+i,y+1).getFill()==Color.BROWN)
@@ -95,10 +95,7 @@ public class Main extends Application {
         }
     }
 
-
-
     public void dodajPlanszeGracz(){
-
 
         planszaG = new VBox();
 
@@ -116,10 +113,8 @@ public class Main extends Application {
                 c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->
                 {
                    Plansza.Pole p = (Plansza.Pole)event.getSource();
-                   if(sprawdz(p.x,p.y,typ,event.getButton()==MouseButton.PRIMARY))
+                   if(sprawdz(p.x,p.y,typ,event.getButton() == MouseButton.PRIMARY))
                     new Statek(typ,event.getButton() == MouseButton.PRIMARY,event,this);
-                   else
-                       ilosc--;
                    
                     if((typ==4&&ilosc==1)||(typ==3&&ilosc==2)||(typ==2&&ilosc==3)||(typ==1&&ilosc==4)){
                         typ--;
@@ -161,12 +156,6 @@ public class Main extends Application {
             planszaK.getChildren().add(row);
         }
 
-                // pole.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
-
-                //   if(event.getButton() == MouseButton.PRIMARY)  pole.setFill(Color.DARKGRAY);
-                //    if(event.getButton() == MouseButton.SECONDARY)  pole.setFill(Color.DARKBLUE);
-
-                //});
         planszaK.setLayoutX(450.0);
         planszaK.setLayoutY(201.0);
         planszaK.setPrefHeight(291);
@@ -212,28 +201,7 @@ public class Main extends Application {
         dodajPlanszeGracz();
         dodajPlanszeKomputer();
 
-    /*  planszaK.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                for(Node node : planszaK.getChildren())
-
-            }
-        });
-
-      */
         System.out.println(getPole(2,3));
-
-
-      /*  planszaG.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-                Pole pole = (Pole) event.getSource();
-                pole.setFill(Color.DARKGRAY);
-            }
-        });*/
-
-
 
         root.getChildren().add(tlo);
         root.getChildren().add(planszaI);

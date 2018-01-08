@@ -24,7 +24,7 @@ public class Statek extends Parent{
         
         if(poziomo){
             for(int i=0;i<dl;i++){
-                if(plansza.getPole(x+i, y).getFill()==Color.BROWN)
+                if(plansza.getPole(x+i, y).getFill()==Color.BROWN || plansza.getPole(x, y) == null)
                     return false;
                 else{
                     if(plansza.getPole(x+i,y-1).getFill()==Color.BROWN||plansza.getPole(x+i,y+1).getFill()==Color.BROWN)
@@ -58,7 +58,6 @@ public class Statek extends Parent{
         
 
         Plansza.Pole p3 = (Plansza.Pole)event.getSource();
-        System.out.print(p3.getFill());
         
         if(poz)
         {
