@@ -167,8 +167,8 @@ public class Main extends Application {
                 //    if(event.getButton() == MouseButton.SECONDARY)  pole.setFill(Color.DARKBLUE);
 
                 //});
-        planszaK.setLayoutX(477.0);
-        planszaK.setLayoutY(228.0);
+        planszaK.setLayoutX(450.0);
+        planszaK.setLayoutY(201.0);
         planszaK.setPrefHeight(291);
         planszaK.setPrefWidth(308);
 
