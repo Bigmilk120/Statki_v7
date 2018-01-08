@@ -102,11 +102,12 @@ public class Main extends Application {
 
         planszaG = new VBox();
 
-        for (int y = 0; y < 10; y++) {
+        for (int y = 0; y < 12; y++) {
             HBox row = new HBox();
-            for (int x = 0; x < 10; x++) {
+            for (int x = 0; x < 12; x++) {
+                if(x!=0||x!=11){
                 Pole c = new Pole(x, y);
-                row.getChildren().add(c);
+                    row.getChildren().add(c);
 
                 c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->
                 {
@@ -121,7 +122,7 @@ public class Main extends Application {
                     }
                         ilosc++;
                 });
-               
+                }
             }
 
             planszaG.getChildren().add(row);
