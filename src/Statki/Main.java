@@ -284,22 +284,13 @@ public class Main extends Application {
     
     public void gra(MouseEvent e){
             Pole p=(Pole)e.getSource();
-            
-            if(iloscPktZyciaGracza <19 ) 
-            {
-                napis.setVisible(true);
-            }
-            
-             if(iloscPktZyciaKomputera <19 ) 
-            {
-                napis2.setVisible(true);
-            }
-            
+
             if(!getPole(p.x,p.y,planszaK).trafiony)
                 if(Komputer[p.x][p.y] == 1){
                     getPole(p.x,p.y,planszaK).setFill(Color.RED);
                     getPole(p.x,p.y,planszaK).trafiony = true;
                     iloscPktZyciaKomputera--;
+                     if(iloscPktZyciaKomputera <19 ) {napis2.setVisible(true); }
                 }
                 else{
                     getPole(p.x,p.y,planszaK).setFill(Color.YELLOW);
@@ -326,6 +317,7 @@ public class Main extends Application {
                  if(Gracz[x][y] == 1)
                  {
                      iloscPktZyciaGracza--;
+                     if(iloscPktZyciaGracza <19 )  {  napis.setVisible(true);}
                      getPole(x,y,planszaG).setFill(Color.RED);
                      getPole(x, y, planszaG).trafiony =  true; 
                      
@@ -341,6 +333,7 @@ public class Main extends Application {
                             getPole(x,y,planszaG).setFill(Color.RED);
                             getPole(x, y, planszaG).trafiony =  true; 
                             iloscPktZyciaGracza--;
+                            if(iloscPktZyciaGracza <19 )  {  napis.setVisible(true);}
                        }else
                        {
                            getPole(x,y,planszaG).setFill(Color.YELLOW);
@@ -384,10 +377,10 @@ public class Main extends Application {
         
         napis = new ImageView();
         napis.setImage(new Image(getClass().getResource("napisP.png").toExternalForm()));
-        napis.setFitWidth(640.0);
-        napis.setFitHeight(400.0);
-        napis.setLayoutX(100.0);
-        napis.setLayoutY(100.0);
+        napis.setFitWidth(800.0);
+        napis.setFitHeight(600.0);
+        napis.setLayoutX(0.0);
+        napis.setLayoutY(0.0);
         napis.setId("Przegrana"); 
         napis.setVisible(false);
     }
@@ -396,10 +389,10 @@ public class Main extends Application {
         
         napis2 = new ImageView();
         napis2.setImage(new Image(getClass().getResource("napisW.png").toExternalForm()));
-        napis2.setFitWidth(640.0);
-        napis2.setFitHeight(400.0);
-        napis2.setLayoutX(100.0);
-        napis2.setLayoutY(100.0);
+        napis2.setFitWidth(800.0);
+        napis2.setFitHeight(600.0);
+        napis2.setLayoutX(0.0);
+        napis2.setLayoutY(0.0);
         napis2.setId("Wygrana");    
         napis2.setVisible(false);
     }
