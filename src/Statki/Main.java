@@ -303,25 +303,37 @@ public class Main extends Application {
                            y = rand.nextInt(10)+1;  
                        }while(getPole(x, y, planszaG).trafiony);                              
                    }
-
-                     do{  
-                        if(Gracz[x][y] == 1){
-                           getPole(x,y,planszaG).setFill(Color.RED);
-                           getPole(x, y, planszaG).trafiony =  true;        
-                       }
-                       else{
+                     
+                   
+                 if(Gracz[x][y] == 1)
+                 {
+                     getPole(x,y,planszaG).setFill(Color.RED);
+                     getPole(x, y, planszaG).trafiony =  true; 
+                     
+                     do{
+                     
+                         do{
+                           x = rand.nextInt(10)+1;
+                           y = rand.nextInt(10)+1;  
+                       }while(getPole(x, y, planszaG).trafiony);
+                         
+                       if(Gracz[x][y] == 1)
+                       {
+                            getPole(x,y,planszaG).setFill(Color.RED);
+                            getPole(x, y, planszaG).trafiony =  true;  
+                       }else
+                       {
+                           getPole(x,y,planszaG).setFill(Color.YELLOW);
+                           getPole(x, y, planszaG).trafiony =  true;
+                       }     
+                     }while(Gracz[x][y] == 1);                                  
+                     
+                 }else{
                            getPole(x,y,planszaG).setFill(Color.YELLOW);
                            getPole(x, y, planszaG).trafiony =  true;
                            tura_gracza=true;
-                       }
-                        
-                        do{
-                           x = rand.nextInt(10)+1;
-                           y = rand.nextInt(10)+1;  
-                       }while(getPole(x, y, planszaG).trafiony); 
-                        
-                        
-                     }while(Gracz[x][y] == 1);    
+                       }    
+                   
             }
            
             
