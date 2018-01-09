@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 
+
 public class Statek extends Parent{
 
     private Integer typStatku;
@@ -56,6 +57,8 @@ public class Statek extends Parent{
         this.typStatku = typ;
         this.poziomo = poz;
         
+        
+        
 
         Plansza.Pole p3 = (Plansza.Pole)event.getSource();
         
@@ -64,9 +67,10 @@ public class Statek extends Parent{
             if(sprawdz(p3.x,p3.y,typ,true,plansza))
             for (int i = 0; i < typ; i++) {
                 Plansza.Pole p4 = plansza.getPole(p3.x,p3.y,plansza.planszaG);
+                plansza.Gracz[p3.x][p4.y] = 1;
                 p3.x++;
                 p4.setFill(Color.BROWN);
-                p4.setStroke(Color.BLACK);
+                p4.setStroke(Color.BLACK);                
             }
         }else
         {
@@ -74,11 +78,14 @@ public class Statek extends Parent{
            if(sprawdz(p3.x,p3.y,typ,false,plansza))
             for (int i = 0; i < typ; i++) {
                 Plansza.Pole p4 = plansza.getPole(p3.x, p3.y,plansza.planszaG);
+                plansza.Gracz[p3.x][p4.y] = 1;
                 p3.y++;
                 p4.setFill(Color.BROWN);
                 p4.setStroke(Color.BLACK);
+               
             }
         }
+
     }
 
 }

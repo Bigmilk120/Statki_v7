@@ -32,18 +32,13 @@ public class Main extends Application {
     public ImageView tlo;
     public ImageView planszaI;
     public ImageView planszaII;
-    public Plansza gracz, komputer;
-    double layoutX = 0.5;
-    double layoutY = 0.5;
-    Pole pole2;
     VBox planszaG;
     VBox planszaK;
-    int typ = 4;
-    int ilosc = 1;
+    int typ;
+    int ilosc;
     public boolean tura_gracza=true;
     int tura=0;
-    
-    
+  
     int[][] Komputer = new int[12][12];
     int[][] Gracz = new int[12][12];
     
@@ -145,10 +140,11 @@ public class Main extends Application {
         return true;
     }
     
-
     public void dodajPlanszeGracz(){
 
         planszaG = new VBox();
+        ilosc = 1;
+        typ = 4;
 
         for (int y = 0; y < 12; y++) {
             HBox row = new HBox();
@@ -165,28 +161,18 @@ public class Main extends Application {
                 {
                     try{
                         boolean poziom = event.getButton() == MouseButton.PRIMARY;
-                        
+                                
                            Plansza.Pole p = (Plansza.Pole)event.getSource();
                            if(sprawdz(p.x,p.y,typ,poziom,planszaG)){
-                            new Statek(typ,poziom,event,this);
-                           
-                           /*  if(poziom)
-                                for(int i=0;i<typ;i++)
-                                     Gracz[p.x+i][p.y]=1;                                  
-                                else
-                                 for(int i=0;i<typ;i++)
-                                    Gracz[p.x][p.y+i]=1;
-                            */
-                           }
-                           else
+                                new Statek(typ,poziom,event,this);                          
+                           }else
                                ilosc--;
+                           
                             if((typ==4&&ilosc==1)||(typ==3&&ilosc==2)||(typ==2&&ilosc==3)||(typ==1&&ilosc==4)){
                                 typ--;
                                 ilosc=0;
                             }
-                                ilosc++;
-                                
-                               
+                                ilosc++;       
                                 
                     }catch(Exception e){}
                    
@@ -268,7 +254,7 @@ public class Main extends Application {
     public Pole getPole(int x, int y,VBox plansza) {
         return (Pole)((HBox)plansza.getChildren().get(y)).getChildren().get(x);
     }
-
+    
     private Parent gvk(){
 
         BorderPane root = new BorderPane();
@@ -291,27 +277,44 @@ public class Main extends Application {
     
     public void gra(MouseEvent e){
             Pole p=(Pole)e.getSource();
-                if(getPole(p.x,p.y,planszaK).getFill()==Color.BROWN){
+            
+            if(!getPole(p.x,p.y,planszaK).trafiony)
+                if(Komputer[p.x][p.y] == 1){
                     getPole(p.x,p.y,planszaK).setFill(Color.RED);
+                    getPole(p.x,p.y,planszaK).trafiony = true;
                 }
                 else{
                     getPole(p.x,p.y,planszaK).setFill(Color.YELLOW);
-                    
+                    getPole(p.x,p.y,planszaK).trafiony = true;
                     tura_gracza=false;
-                }
-            
-            Random rand=new Random();
-                int x=rand.nextInt(10)+1;
-                int y=rand.nextInt(10)+1;
-                if(getPole(x,y,planszaG).getFill()==Color.BROWN){
-                    getPole(x,y,planszaG).setFill(Color.RED);
-                }
-                else{
-                    getPole(x,y,planszaG).setFill(Color.YELLOW);
-                    tura_gracza=true;
-                }
-            
-            
+               
+             Random rand=new Random();          
+                   int x,y;
+
+                   x = rand.nextInt(10)+1;
+                   y = rand.nextInt(10)+1;
+
+                   boolean traf = getPole(x, y, planszaG).trafiony;
+
+                   if(traf)
+                   {
+                       do{
+                           x = rand.nextInt(10)+1;
+                           y = rand.nextInt(10)+1;  
+                       }while(getPole(x, y, planszaG).trafiony);                              
+                   }
+
+                       if(Gracz[x][y] == 1){
+                           getPole(x,y,planszaG).setFill(Color.RED);
+                           getPole(x, y, planszaG).trafiony =  true;
+                       }
+                       else{
+                           getPole(x,y,planszaG).setFill(Color.YELLOW);
+                           getPole(x, y, planszaG).trafiony =  true;
+                           tura_gracza=true;
+                       }
+            }
+           
             
            /* if(tura_gracza){
                 if(Komputer[p.x][p.y]==1){
@@ -336,10 +339,6 @@ public class Main extends Application {
                 }
             } */
         }
-         
-        
-        
-
 
 
     @Override

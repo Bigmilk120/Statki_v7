@@ -1,3 +1,4 @@
+
 package Statki;
 
 import javafx.event.Event;
@@ -24,7 +25,7 @@ public class Plansza extends Parent{
 
         public int x, y;
         public Statek statek = null;
-        public boolean wasShot = false;
+        public boolean trafiony = false;
 
         private Plansza plansza;
 
@@ -43,6 +44,11 @@ public class Plansza extends Parent{
             this.statek=statek;
             setFill(Color.LIGHTGRAY);
             setStroke(Color.BLACK);
+            
+            
+            
+            
+            
         }
 
     }
