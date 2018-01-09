@@ -304,15 +304,24 @@ public class Main extends Application {
                        }while(getPole(x, y, planszaG).trafiony);                              
                    }
 
-                       if(Gracz[x][y] == 1){
+                     do{  
+                        if(Gracz[x][y] == 1){
                            getPole(x,y,planszaG).setFill(Color.RED);
-                           getPole(x, y, planszaG).trafiony =  true;
+                           getPole(x, y, planszaG).trafiony =  true;        
                        }
                        else{
                            getPole(x,y,planszaG).setFill(Color.YELLOW);
                            getPole(x, y, planszaG).trafiony =  true;
                            tura_gracza=true;
                        }
+                        
+                        do{
+                           x = rand.nextInt(10)+1;
+                           y = rand.nextInt(10)+1;  
+                       }while(getPole(x, y, planszaG).trafiony); 
+                        
+                        
+                     }while(Gracz[x][y] == 1);    
             }
            
             

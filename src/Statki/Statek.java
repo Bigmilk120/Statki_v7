@@ -57,8 +57,6 @@ public class Statek extends Parent{
         this.typStatku = typ;
         this.poziomo = poz;
         
-        
-        
 
         Plansza.Pole p3 = (Plansza.Pole)event.getSource();
         
