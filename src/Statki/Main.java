@@ -33,6 +33,7 @@ public class Main extends Application {
     public ImageView planszaI;
     public ImageView planszaII;
     ImageView napis;
+    ImageView napis2;
     VBox planszaG;
     VBox planszaK;
     int typ;
@@ -40,6 +41,7 @@ public class Main extends Application {
     public boolean tura_gracza=true;
     int tura=0;
     public int iloscPktZyciaGracza = 20;
+    public int iloscPktZyciaKomputera = 20;
   
     int[][] Komputer = new int[12][12];
     int[][] Gracz = new int[12][12];
@@ -266,6 +268,7 @@ public class Main extends Application {
         dodajPlanszeGracz();
         dodajPlanszeKomputer();
         przegrana();
+        wygrana();
         
         root.getChildren().add(tlo);
         root.getChildren().add(planszaI);
@@ -273,6 +276,7 @@ public class Main extends Application {
         root.getChildren().add(planszaG);
         root.getChildren().add(planszaK);
         root.getChildren().add(napis);
+        root.getChildren().add(napis2);
         ustawStatkiK();
 
         return root;
@@ -286,10 +290,16 @@ public class Main extends Application {
                 napis.setVisible(true);
             }
             
+             if(iloscPktZyciaKomputera <19 ) 
+            {
+                napis2.setVisible(true);
+            }
+            
             if(!getPole(p.x,p.y,planszaK).trafiony)
                 if(Komputer[p.x][p.y] == 1){
                     getPole(p.x,p.y,planszaK).setFill(Color.RED);
                     getPole(p.x,p.y,planszaK).trafiony = true;
+                    iloscPktZyciaKomputera--;
                 }
                 else{
                     getPole(p.x,p.y,planszaK).setFill(Color.YELLOW);
@@ -373,24 +383,25 @@ public class Main extends Application {
     public void przegrana(){
         
         napis = new ImageView();
-                napis.setImage(new Image(getClass().getResource("napisP.png").toExternalForm()));
-                napis.setFitWidth(640.0);
-                napis.setFitHeight(400.0);
-                napis.setLayoutX(100.0);
-                napis.setLayoutY(100.0);
-                napis.setId("Przegrana"); 
-                napis.setVisible(false);
+        napis.setImage(new Image(getClass().getResource("napisP.png").toExternalForm()));
+        napis.setFitWidth(640.0);
+        napis.setFitHeight(400.0);
+        napis.setLayoutX(100.0);
+        napis.setLayoutY(100.0);
+        napis.setId("Przegrana"); 
+        napis.setVisible(false);
     }
     
     public void wygrana(){
         
-        ImageView napis = new ImageView();
-        napis.setImage(new Image(getClass().getResource("napisW.png").toExternalForm()));
-        napis.setFitWidth(300.0);
-        napis.setFitHeight(100.0);
-        napis.setLayoutX(100.0);
-        napis.setLayoutY(100.0);
-        napis.setId("Wygrana");    
+        napis2 = new ImageView();
+        napis2.setImage(new Image(getClass().getResource("napisW.png").toExternalForm()));
+        napis2.setFitWidth(640.0);
+        napis2.setFitHeight(400.0);
+        napis2.setLayoutX(100.0);
+        napis2.setLayoutY(100.0);
+        napis2.setId("Wygrana");    
+        napis2.setVisible(false);
     }
     
 
