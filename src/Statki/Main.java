@@ -66,7 +66,11 @@ public class Main extends Application {
             // Deklarowanie statku (4-pola)
             for(int i=0;i<dl;i++) {
                 Komputer[X_los+i][Y_los] = 1;
+<<<<<<< HEAD
                // getPole(X_los+i,Y_los,planszaK).setFill(Color.BROWN);
+=======
+                getPole(X_los+i,Y_los,planszaK).setFill(Color.BROWN);
+>>>>>>> parent of c0df237... Merge branch 'master' of https://github.com/vrigos90/Stastki_v_006
             }
             Statek s = new Statek(X_los,Y_los,dl,true,this,planszaK);
             tabStatkow.add(s);
@@ -88,7 +92,7 @@ public class Main extends Application {
             for(int i=0;i<dl;i++)
             {
                 Komputer[X_los][Y_los+i] = 1;
-                //getPole(X_los,Y_los+i,planszaK).setFill(Color.BROWN);
+                getPole(X_los,Y_los+i,planszaK).setFill(Color.BROWN);
             }
             Statek s = new Statek(X_los,Y_los,dl,false,this,planszaK);
             tabStatkow.add(s);
