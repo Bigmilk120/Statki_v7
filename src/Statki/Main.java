@@ -290,7 +290,7 @@ public class Main extends Application {
                     getPole(p.x,p.y,planszaK).setFill(Color.RED);
                     getPole(p.x,p.y,planszaK).trafiony = true;
                     iloscPktZyciaKomputera--;
-                     if(iloscPktZyciaKomputera <19 ) {napis2.setVisible(true); }
+                     if(iloscPktZyciaKomputera == 0 ) {napis2.setVisible(true); }
                 }
                 else{
                     getPole(p.x,p.y,planszaK).setFill(Color.YELLOW);
@@ -317,7 +317,7 @@ public class Main extends Application {
                  if(Gracz[x][y] == 1)
                  {
                      iloscPktZyciaGracza--;
-                     if(iloscPktZyciaGracza <19 )  {  napis.setVisible(true);}
+                     if(iloscPktZyciaGracza == 0 )  {  napis.setVisible(true);}
                      getPole(x,y,planszaG).setFill(Color.RED);
                      getPole(x, y, planszaG).trafiony =  true; 
                      
@@ -333,7 +333,7 @@ public class Main extends Application {
                             getPole(x,y,planszaG).setFill(Color.RED);
                             getPole(x, y, planszaG).trafiony =  true; 
                             iloscPktZyciaGracza--;
-                            if(iloscPktZyciaGracza <19 )  {  napis.setVisible(true);}
+                            if(iloscPktZyciaGracza == 0 )  {  napis.setVisible(true);}
                        }else
                        {
                            getPole(x,y,planszaG).setFill(Color.YELLOW);
