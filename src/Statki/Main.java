@@ -23,6 +23,9 @@ import javafx.scene.image.*;
 import Statki.Plansza.Pole;
 import Statki.Plansza.Pole.*;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javafx.application.Application.launch;
 
 import static javafx.scene.input.MouseEvent.*;
@@ -212,7 +215,8 @@ public class Main extends Application {
                         
                          Pole p = (Pole)event.getSource();
                            
-                       gra(event);
+                        gra(event);
+
                         
                     });
                 
@@ -313,6 +317,8 @@ public class Main extends Application {
                        }while(getPole(x, y, planszaG).trafiony);                              
                    }
                      
+                
+                   
                    
                  if(Gracz[x][y] == 1)
                  {
@@ -320,7 +326,7 @@ public class Main extends Application {
                      if(iloscPktZyciaGracza == 0 )  {  napis.setVisible(true);}
                      getPole(x,y,planszaG).setFill(Color.RED);
                      getPole(x, y, planszaG).trafiony =  true; 
-                     
+
                      do{
                      
                          do{
@@ -329,7 +335,7 @@ public class Main extends Application {
                        }while(getPole(x, y, planszaG).trafiony);
                          
                        if(Gracz[x][y] == 1)
-                       {
+                       {                    
                             getPole(x,y,planszaG).setFill(Color.RED);
                             getPole(x, y, planszaG).trafiony =  true; 
                             iloscPktZyciaGracza--;
