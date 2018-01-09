@@ -312,7 +312,14 @@ public class Main extends Application {
                
              Random rand=new Random();          
                    int x,y;
-
+try        
+{
+    Thread.sleep(1000);
+} 
+catch(InterruptedException ex) 
+{
+    Thread.currentThread().interrupt();
+}
                    x = rand.nextInt(10)+1;
                    y = rand.nextInt(10)+1;
 
@@ -321,6 +328,15 @@ public class Main extends Application {
                    if(traf)
                    {
                        do{
+                           try        
+{
+    Thread.sleep(1000);
+} 
+catch(InterruptedException ex) 
+{
+    Thread.currentThread().interrupt();
+}
+                           
                            x = rand.nextInt(10)+1;
                            y = rand.nextInt(10)+1;  
                        }while(getPole(x, y, planszaG).trafiony);                              
@@ -348,6 +364,7 @@ public class Main extends Application {
                      do{
                      
                          do{
+                             
                            x = rand.nextInt(10)+1;
                            y = rand.nextInt(10)+1;  
                        }while(getPole(x, y, planszaG).trafiony);
