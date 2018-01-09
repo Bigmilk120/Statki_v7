@@ -16,30 +16,30 @@ public class Statek extends Parent{
     private boolean poziomo = true;
     public int iloscPkt;
     
-   final boolean sprawdz(int x, int y, int dl, boolean poziomo, Main plansza, VBox planszaW){
+   final boolean sprawdz(int x, int y, int dl, boolean poziomo, Main main, VBox plansza){
 
         if(poziomo){
             for(int i=0;i<dl;i++){
-                if(plansza.getPole(x+i, y,planszaW).getFill()==Color.BROWN || plansza.getPole(x, y,planszaW) == null)
+                if(main.getPole(x+i, y,plansza).getFill()==Color.BROWN)
                     return false;
                 else{
-                    if(plansza.getPole(x+i,y-1,planszaW).getFill()==Color.BROWN||plansza.getPole(x+i,y+1,planszaW).getFill()==Color.BROWN)
+                    if(main.getPole(x+i,y-1,plansza).getFill()==Color.BROWN||main.getPole(x+i,y+1,plansza).getFill()==Color.BROWN)
                         return false;
                     else{
-                        if(plansza.getPole(x-1,y,planszaW).getFill()==Color.BROWN||plansza.getPole(x-1,y-1,planszaW).getFill()==Color.BROWN||plansza.getPole(x-1,y+1,planszaW).getFill()==Color.BROWN||plansza.getPole(x+dl,y,planszaW).getFill()==Color.BROWN||plansza.getPole(x+dl,y-1,planszaW).getFill()==Color.BROWN||plansza.getPole(x+dl,y+1,planszaW).getFill()==Color.BROWN)
+                        if(main.getPole(x-1,y,plansza).getFill()==Color.BROWN||main.getPole(x-1,y-1,plansza).getFill()==Color.BROWN||main.getPole(x-1,y+1,plansza).getFill()==Color.BROWN||main.getPole(x+dl,y,plansza).getFill()==Color.BROWN||main.getPole(x+dl,y-1,plansza).getFill()==Color.BROWN||main.getPole(x+dl,y+1,plansza).getFill()==Color.BROWN)
                             return false;
                     }
                 }
             }
         }else{
             for(int i=0;i<dl;i++){
-                if(plansza.getPole(x,y+i,planszaW).getFill()==Color.BROWN)
+                if(main.getPole(x,y+i,plansza).getFill()==Color.BROWN)
                     return false;
                 else{
-                    if(plansza.getPole(x-1,y+i,planszaW).getFill()==Color.BROWN||plansza.getPole(x+1,y+i,planszaW).getFill()==Color.BROWN)
+                    if(main.getPole(x-1,y+i,plansza).getFill()==Color.BROWN||main.getPole(x+1,y+i,plansza).getFill()==Color.BROWN)
                         return false;
                     else{
-                        if(plansza.getPole(x,y-1,planszaW).getFill()==Color.BROWN||plansza.getPole(x-1,y-1,planszaW).getFill()==Color.BROWN||plansza.getPole(x+1,y-1,planszaW).getFill()==Color.BROWN||plansza.getPole(x,y+dl,planszaW).getFill()==Color.BROWN||plansza.getPole(x-1,y+dl,planszaW).getFill()==Color.BROWN||plansza.getPole(x+1,y+dl,planszaW).getFill()==Color.BROWN)
+                        if(main.getPole(x,y-1,plansza).getFill()==Color.BROWN||main.getPole(x-1,y-1,plansza).getFill()==Color.BROWN||main.getPole(x+1,y-1,plansza).getFill()==Color.BROWN||main.getPole(x,y+dl,plansza).getFill()==Color.BROWN||main.getPole(x-1,y+dl,plansza).getFill()==Color.BROWN||main.getPole(x+1,y+dl,plansza).getFill()==Color.BROWN)
                             return false;
                     }
                 }

@@ -114,7 +114,7 @@ public class Main extends Application {
 
         if(poziomo){
             for(int i=0;i<dl;i++){
-                if(this.getPole(x+i, y,plansza).getFill()==Color.BROWN || this.getPole(x+i, y,plansza) == null)
+                if(this.getPole(x+i, y,plansza).getFill()==Color.BROWN)
                     return false;
                 else{
                     if(this.getPole(x+i,y-1,plansza).getFill()==Color.BROWN||this.getPole(x+i,y+1,plansza).getFill()==Color.BROWN)
@@ -140,27 +140,6 @@ public class Main extends Application {
             }
         }
         return true;
-    }
-
-    public void dodajStatkiG(int typ, int ilosc, boolean poz, MouseEvent event){
-        Pole p3 = (Pole)event.getSource();
-        if(poz)
-        {
-            for (int i = 0; i < typ; i++) {
-                Pole p4 = getPole(p3.x, p3.y,planszaG);
-                p3.x++;
-                p4.setFill(Color.BROWN);
-                p4.setStroke(Color.BLACK);
-            }
-        }else
-        {
-            for (int i = 0; i < typ; i++) {
-                Pole p4 = getPole(p3.x, p3.y,planszaG);
-                p3.y++;
-                p4.setFill(Color.BROWN);
-                p4.setStroke(Color.BLACK);
-            }
-        }
     }
 
     public void dodajPlanszeGracz(){
