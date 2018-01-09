@@ -285,12 +285,12 @@ public class Main extends Application {
     public void gra(MouseEvent e){
             Pole p=(Pole)e.getSource();
             
-            if(iloscPktZyciaGracza <19 ) 
+            if(iloscPktZyciaGracza==0 ) 
             {
                 napis.setVisible(true);
             }
             
-             if(iloscPktZyciaKomputera <19 ) 
+             if(iloscPktZyciaKomputera ==0 ) 
             {
                 napis2.setVisible(true);
             }
