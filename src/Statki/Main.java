@@ -32,12 +32,14 @@ public class Main extends Application {
     public ImageView tlo;
     public ImageView planszaI;
     public ImageView planszaII;
+    ImageView napis;
     VBox planszaG;
     VBox planszaK;
     int typ;
     int ilosc;
     public boolean tura_gracza=true;
     int tura=0;
+    public int iloscPktZyciaGracza = 20;
   
     int[][] Komputer = new int[12][12];
     int[][] Gracz = new int[12][12];
@@ -263,13 +265,14 @@ public class Main extends Application {
         ustawienieZdjec();
         dodajPlanszeGracz();
         dodajPlanszeKomputer();
-
-
+        przegrana();
+        
         root.getChildren().add(tlo);
         root.getChildren().add(planszaI);
         root.getChildren().add(planszaII);
         root.getChildren().add(planszaG);
         root.getChildren().add(planszaK);
+        root.getChildren().add(napis);
         ustawStatkiK();
 
         return root;
@@ -277,6 +280,11 @@ public class Main extends Application {
     
     public void gra(MouseEvent e){
             Pole p=(Pole)e.getSource();
+            
+            if(iloscPktZyciaGracza <19 ) 
+            {
+                napis.setVisible(true);
+            }
             
             if(!getPole(p.x,p.y,planszaK).trafiony)
                 if(Komputer[p.x][p.y] == 1){
@@ -307,6 +315,7 @@ public class Main extends Application {
                    
                  if(Gracz[x][y] == 1)
                  {
+                     iloscPktZyciaGracza--;
                      getPole(x,y,planszaG).setFill(Color.RED);
                      getPole(x, y, planszaG).trafiony =  true; 
                      
@@ -320,7 +329,8 @@ public class Main extends Application {
                        if(Gracz[x][y] == 1)
                        {
                             getPole(x,y,planszaG).setFill(Color.RED);
-                            getPole(x, y, planszaG).trafiony =  true;  
+                            getPole(x, y, planszaG).trafiony =  true; 
+                            iloscPktZyciaGracza--;
                        }else
                        {
                            getPole(x,y,planszaG).setFill(Color.YELLOW);
@@ -332,8 +342,7 @@ public class Main extends Application {
                            getPole(x,y,planszaG).setFill(Color.YELLOW);
                            getPole(x, y, planszaG).trafiony =  true;
                            tura_gracza=true;
-                       }    
-                   
+                       }     
             }
            
             
@@ -360,7 +369,30 @@ public class Main extends Application {
                 }
             } */
         }
-
+    
+    public void przegrana(){
+        
+        napis = new ImageView();
+                napis.setImage(new Image(getClass().getResource("napisP.png").toExternalForm()));
+                napis.setFitWidth(640.0);
+                napis.setFitHeight(400.0);
+                napis.setLayoutX(100.0);
+                napis.setLayoutY(100.0);
+                napis.setId("Przegrana"); 
+                napis.setVisible(false);
+    }
+    
+    public void wygrana(){
+        
+        ImageView napis = new ImageView();
+        napis.setImage(new Image(getClass().getResource("napisW.png").toExternalForm()));
+        napis.setFitWidth(300.0);
+        napis.setFitHeight(100.0);
+        napis.setLayoutX(100.0);
+        napis.setLayoutY(100.0);
+        napis.setId("Wygrana");    
+    }
+    
 
     @Override
     public void start(Stage primaryStage) throws Exception{
