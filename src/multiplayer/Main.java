@@ -45,7 +45,8 @@ public class Main extends Application {
     int tura=0;
     public int iloscPktZyciaGracza = 20;
     public int iloscPktZyciaKomputera = 20;
-  
+    public int ilosc_statkow=0;
+    
     int[][] Komputer = new int[12][12];
     int[][] Gracz = new int[12][12];
     
@@ -201,7 +202,8 @@ public class Main extends Application {
                                 
                            Plansza.Pole p = (Plansza.Pole)event.getSource();
                            if(sprawdz(p.x,p.y,typ,poziom,planszaG)){
-                                new Statek(typ,poziom,event,this);                          
+                                new Statek(typ,poziom,event,this);    
+                                ++ilosc_statkow;
                            }else
                                ilosc--;
                            
@@ -243,10 +245,10 @@ public class Main extends Application {
                 
                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
                         
-                         Pole p = (Pole)event.getSource();
-                           
+                   if(ilosc_statkow == 10){
+                        Pole p = (Pole)event.getSource();   
                         gra(event);
-
+                   }
                         
                     });
                 

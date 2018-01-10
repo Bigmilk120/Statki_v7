@@ -203,7 +203,7 @@ public class Main extends Application {
                            Plansza.Pole p = (Plansza.Pole)event.getSource();
                            if(sprawdz(p.x,p.y,typ,poziom,planszaG)){
                                 new Statek(typ,poziom,event,this);   
-                                ilosc_statkow++;
+                                ++ilosc_statkow;
                            }else
                                ilosc--;
                            
@@ -244,10 +244,10 @@ public class Main extends Application {
                     c.setVisible(false);
                 
                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
-                        if(ilosc_statkow==10){
-                         Pole p = (Pole)event.getSource();
-                           
-                        gra(event);
+                        if(ilosc_statkow>=10){
+                            
+                            Pole p = (Pole)event.getSource();  
+                            gra(event);
                         }
                         
                     });
@@ -374,7 +374,8 @@ public class Main extends Application {
                             {
                                 Thread.currentThread().interrupt();
                             }
-                         napis.setVisible(true);}
+                         napis.setVisible(true);
+                     }
                      getPole(x,y,planszaG).setFill(Color.RED);
                      getPole(x, y, planszaG).trafiony =  true; 
 
