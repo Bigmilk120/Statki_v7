@@ -5,7 +5,7 @@ import java.net.*;
 
 public class Client{
    
-    public void main(String[] args) throws Exception
+    public static void main(String[] args) throws Exception
     {
         Socket sock = new Socket("192.168.0.24",7890);
         OutputStream ostream = sock.getOutputStream();
