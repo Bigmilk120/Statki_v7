@@ -435,7 +435,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
        
-      try{
           Scene scene = new Scene(gvk());
         primaryStage.setTitle("Gracz kontra Komputer");
         primaryStage.setScene(scene);
@@ -443,10 +442,6 @@ public class Main extends Application {
         primaryStage.setHeight(630.0);
         primaryStage.setResizable(false);
         primaryStage.show();
-      }catch(Exception e){}
-      finally{
-          primaryStage.close();
-           }
         
     }
 
