@@ -1,4 +1,4 @@
-package Statki;
+package multiplayer;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -20,8 +20,8 @@ import javafx.stage.Stage;
 import javax.swing.*;
 import javafx.scene.image.*;
 
-import Statki.Plansza.Pole;
-import Statki.Plansza.Pole.*;
+import multiplayer.Plansza.Pole;
+import multiplayer.Plansza.Pole.*;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -434,8 +434,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-       
-      try{
           Scene scene = new Scene(gvk());
         primaryStage.setTitle("Gracz kontra Komputer");
         primaryStage.setScene(scene);
@@ -443,10 +441,6 @@ public class Main extends Application {
         primaryStage.setHeight(630.0);
         primaryStage.setResizable(false);
         primaryStage.show();
-      }catch(Exception e){}
-      finally{
-          primaryStage.close();
-           }
         
     }
 
