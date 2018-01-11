@@ -201,10 +201,7 @@ public class Client extends Application{
         dodajPlanszePrzeciwnik();
         przegrana();
         wygrana();
-        
-         try{
-            odbieranie();
-            }catch(Exception e){ e.printStackTrace();};
+        try{  odbieranie(); }catch(Exception e){ e.printStackTrace();};
         
         root.getChildren().add(tlo);
         root.getChildren().add(planszaI);
@@ -333,26 +330,17 @@ public class Client extends Application{
    
     void odbieranie() throws Exception{
 
-        Socket sock = new Socket("192.168.8.58",7890);
+        Socket sock = new Socket("192.168.1.18", 3000);
 
         OutputStream ostream = sock.getOutputStream();
         
-        PrintWriter pwrite = new PrintWriter(ostream,true);
+         PrintWriter pwrite = new PrintWriter(ostream, true);
         
         InputStream istream = sock.getInputStream();
-        BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
-        
-        
-        System.out.println(receiveRead.read());
-       // String x = "0",y="0",x_p="0",y_p="0";
-        
-       /* for(int i=1;i<=10;i++){
-          for(int j=1;j<=10;j++){
-                  receiveRead.read();
-                  System.out.println("Wyslalo sie!");
-          }
-      }    
-*/
+         BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
+         
+        System.out.println(receiveRead.readLine());
+         
     } 
 
     @Override
@@ -365,20 +353,7 @@ public class Client extends Application{
             primaryStage.setResizable(false);
             primaryStage.show();
         }
-        public static void main(String[] args) throws IOException 
-        {
-            Socket sock = new Socket("25.56.18.159",7890);
-        OutputStream ostream = sock.getOutputStream();
-        
-        PrintWriter pwrite = new PrintWriter(ostream,true);
-        
-        InputStream istream = sock.getInputStream();
-        BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
-        
-        System.out.println(receiveRead.read());
-            
-             launch(args);
-        }
+        public static void main(String[] args) throws IOException  {   launch(args);}
     }
     
     

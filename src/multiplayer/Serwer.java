@@ -1,7 +1,14 @@
 package multiplayer;
 
-import java.io.*;
-import java.net.*;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Random;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -120,10 +127,9 @@ public class Serwer extends Application
       
     public void dodajPlanszePrzeciwnik(){
 
-        try{
-        wysylanie();
-        }catch(Exception e){System.out.println(e);};
-       if(ilosc_statkow==10){
+        // try{
+        //wysylanie();
+        //}catch(Exception e){System.out.println(e);};
         
         planszaK = new VBox();
 
@@ -163,7 +169,7 @@ public class Serwer extends Application
         planszaK.setPrefHeight(291);
         planszaK.setPrefWidth(308);
 
-    }
+    
     }
     
     private void ustawienieZdjec() {
@@ -199,12 +205,12 @@ public class Serwer extends Application
 
         BorderPane root = new BorderPane();
         root.setPrefSize(800, 600);
-
         ustawienieZdjec();
         dodajPlanszeGracz();
         dodajPlanszePrzeciwnik();
         przegrana();
         wygrana();
+        try{wysylanie();}catch(Exception e){}
         
         root.getChildren().add(tlo);
         root.getChildren().add(planszaI);
@@ -331,11 +337,11 @@ public class Serwer extends Application
         napis2.setId("Wygrana");    
         napis2.setVisible(false);
     }
-    
-    
+ 
     void wysylanie()throws Exception{
         
-        ServerSocket sersock = new ServerSocket(7890);
+        ServerSocket sersock = new ServerSocket(3000);
+        System.out.println("Server  ready for chatting");
         Socket sock = sersock.accept();                          
 
 
@@ -344,45 +350,28 @@ public class Serwer extends Application
 
 
         InputStream istream = sock.getInputStream();
-
-        BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream)); 
+        BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
         
-        pwrite.println("x");
+        pwrite.println("Dziala");
         pwrite.flush();
-        
-        try{
-        pwrite.print("Wyslalo sie?");
-        }catch(Exception e){System.out.println("Nie wyslalo sie.");}
-        pwrite.flush();
-       
-        String x = "1",y="1",x_p="0",y_p="0";            
-
-       /* for(int i=1;i<=10;i++){
-            for(int j=1;j<=10;j++){
-                    pwrite.print(Gracz[i][j]);
-                    pwrite.flush();
-            }
-
-        } */      
-
+ 
         }       
        
-
-  public static void main(String[] args)
-  {
-       launch(args);
-      
-    }                    
-
     @Override
     public void start(Stage primaryStage) throws Exception {
-         Scene scene = new Scene(gvk());
+
+        Scene scene = new Scene(gvk());
         primaryStage.setTitle("Serwer");
         primaryStage.setScene(scene);
         primaryStage.setWidth(806.0);
         primaryStage.setHeight(630.0);
         primaryStage.setResizable(false);
         primaryStage.show();
-      
     }
+    
+    public static void main(String[] args) throws IOException { 
+        launch(args);
+    }                    
+
+
 }                        
