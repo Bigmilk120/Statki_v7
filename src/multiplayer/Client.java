@@ -331,7 +331,7 @@ public class Client extends Application{
     }
    
     void odbieranie() throws Exception{
-        Socket sock = new Socket("192.168.43.106",7890);
+        Socket sock = new Socket("192.168.1.18",7890);
         OutputStream ostream = sock.getOutputStream();
         
         PrintWriter pwrite = new PrintWriter(ostream,true);
@@ -341,12 +341,15 @@ public class Client extends Application{
         
         String x = "0",y="0",x_p="0",y_p="0";
         
+        System.out.println(receiveRead.read());
+        
+        /*
         for(int i=1;i<=10;i++){
           for(int j=1;j<=10;j++){
                   Przeciwnik[i][j]=receiveRead.read();
                   System.out.println("Wyslalo sie!");
           }
-      }       
+      }    */   
     } 
 
     @Override

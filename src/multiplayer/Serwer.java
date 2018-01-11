@@ -119,11 +119,11 @@ public class Serwer extends Application
     }
       
     public void dodajPlanszePrzeciwnik(){
-       if(ilosc_statkow==10){
+      
         try{
         wysylanie();
         }catch(Exception e){System.out.println(e);};
-       }
+       
         planszaK = new VBox();
 
 
@@ -339,13 +339,17 @@ public class Serwer extends Application
 
         InputStream istream = sock.getInputStream();
         BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
-        String x = "1",y="1",x_p="0",y_p="0";            
+        
+        pwrite.println("x");
+        pwrite.flush();
+        
+        /*String x = "1",y="1",x_p="0",y_p="0";            
         for(int i=1;i<=10;i++){
             for(int j=1;j<=10;j++){
                     pwrite.print(Gracz[i][j]);
                     pwrite.flush();
             }
-        }       
+        }       */
     }
     
   public static void main(String[] args)
