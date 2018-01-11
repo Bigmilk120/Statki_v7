@@ -100,6 +100,13 @@ public class Serwer extends Application
                            if(sprawdz(p.x,p.y,typ,poziom,planszaG)){
                                 new Statek(typ,poziom,event,this);    
                                 ++ilosc_statkow;
+                               
+                                if(ilosc_statkow == 10 )
+                                {
+                                  System.out.println(ilosc_statkow);
+                                    try{   wysylanie();}catch(Exception e){}
+                                }
+                                    
                            }else
                                ilosc--;
                            
@@ -127,9 +134,7 @@ public class Serwer extends Application
       
     public void dodajPlanszePrzeciwnik(){
 
-        // try{
-        //wysylanie();
-        //}catch(Exception e){System.out.println(e);};
+        
       
         planszaK = new VBox();
 
@@ -148,7 +153,7 @@ public class Serwer extends Application
                    if(ilosc_statkow == 10){
                         Plansza.Pole p = (Plansza.Pole)event.getSource();   
                         
-       
+                       
                         gra(event);
                         
                         try{
@@ -210,7 +215,7 @@ public class Serwer extends Application
         dodajPlanszePrzeciwnik();
         przegrana();
         wygrana();
-        try{wysylanie();}catch(Exception e){}
+        
         
         root.getChildren().add(tlo);
         root.getChildren().add(planszaI);
@@ -227,7 +232,7 @@ public class Serwer extends Application
     public void gra(MouseEvent e){
             Plansza.Pole p=(Plansza.Pole)e.getSource();
 
-            if(!getPole(p.x,p.y,planszaK).trafiony)
+     /*       if(!getPole(p.x,p.y,planszaK).trafiony)
                 if(Przeciwnik[p.x][p.y] == 1){
                     getPole(p.x,p.y,planszaK).setFill(Color.RED);
                     getPole(p.x,p.y,planszaK).trafiony = true;
@@ -248,27 +253,10 @@ public class Serwer extends Application
                     getPole(p.x,p.y,planszaK).trafiony = true;
                     tura_gracza=false;
                
-             Random rand=new Random();          
-                   int x,y;
-
-                   x = rand.nextInt(10)+1;
-                   y = rand.nextInt(10)+1;
-
-                   boolean traf = getPole(x, y, planszaG).trafiony;
-
-                   if(traf)
-                   {
-                       do{
-                           
-                           x = rand.nextInt(10)+1;
-                           y = rand.nextInt(10)+1;  
-                       }while(getPole(x, y, planszaG).trafiony);                              
-                   }
-                     
-                
+            
+             */      
                    
-                   
-                 if(Gracz[x][y] == 1)
+               /*  if(Gracz[x][y] == 1)
                  {
                      iloscPktZyciaGracza--;
                      if(iloscPktZyciaGracza == 0 )  {  
@@ -309,8 +297,8 @@ public class Serwer extends Application
                            getPole(x,y,planszaG).setFill(Color.YELLOW);
                            getPole(x, y, planszaG).trafiony =  true;
                            tura_gracza=true;
-                       }     
-            }
+                       }    
+            }*/ 
 
         }
     
@@ -352,7 +340,12 @@ public class Serwer extends Application
         InputStream istream = sock.getInputStream();
         BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
         
-        pwrite.println("Dziala");
+ 
+        for(int i=1;i<=10;i++)
+            for(int j=1;j<=10;j++)
+            {
+                pwrite.println(Gracz[i][j]);
+            }
         pwrite.flush();
  
         }       
