@@ -119,11 +119,11 @@ public class Serwer extends Application
     }
       
     public void dodajPlanszePrzeciwnik(){
-       if(ilosc_statkow==10){
         try{
         wysylanie();
         }catch(Exception e){System.out.println(e);};
-       }
+       if(ilosc_statkow==10){
+        
         planszaK = new VBox();
 
 
@@ -140,6 +140,8 @@ public class Serwer extends Application
                         
                    if(ilosc_statkow == 10){
                         Plansza.Pole p = (Plansza.Pole)event.getSource();   
+                        
+       
                         gra(event);
                    }
                         
@@ -157,6 +159,7 @@ public class Serwer extends Application
         planszaK.setPrefHeight(291);
         planszaK.setPrefWidth(308);
 
+    }
     }
     
     private void ustawienieZdjec() {
@@ -340,12 +343,16 @@ public class Serwer extends Application
         InputStream istream = sock.getInputStream();
         BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
         String x = "1",y="1",x_p="0",y_p="0";            
-        for(int i=1;i<=10;i++){
+       /* for(int i=1;i<=10;i++){
             for(int j=1;j<=10;j++){
                     pwrite.print(Gracz[i][j]);
                     pwrite.flush();
             }
-        }       
+        }       */
+       try{
+       pwrite.print("Wyslalo sie?");
+       }catch(Exception e){System.out.println("Nie wyslalo sie.");}
+       pwrite.flush();
     }
     
   public static void main(String[] args)
