@@ -121,11 +121,11 @@ public class Client extends Application{
       
     public void dodajPlanszePrzeciwnik(){
         
-        try{
-        odbieranie();
-        }catch(Exception e){ System.out.println(e);};
+  
+           
+        
         planszaK = new VBox();
-
+       
 
         for (int y = 0; y < 12; y++) {
             HBox row = new HBox();
@@ -136,11 +136,14 @@ public class Client extends Application{
                 if(x==0||x==11)
                     c.setVisible(false);
                 
+                
+                
                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
                         
                    if(ilosc_statkow == 10){
                         Plansza.Pole p = (Plansza.Pole)event.getSource();   
                         gra(event);
+                              
                    }
                         
                     });
@@ -199,6 +202,10 @@ public class Client extends Application{
         przegrana();
         wygrana();
         
+         try{
+            odbieranie();
+            }catch(Exception e){ e.printStackTrace();};
+        
         root.getChildren().add(tlo);
         root.getChildren().add(planszaI);
         root.getChildren().add(planszaII);
@@ -206,12 +213,7 @@ public class Client extends Application{
         root.getChildren().add(planszaK);
         root.getChildren().add(napis);
         root.getChildren().add(napis2);
-        for(int i=1;i<=10;i++){
-            for(int j=1;j<=10;j++){
-                System.out.print(Przeciwnik[i][j]);
-            }
-            System.out.println();
-        }
+    
 
         return root;
     }
@@ -257,8 +259,7 @@ public class Client extends Application{
                        }while(getPole(x, y, planszaG).trafiony);                              
                    }
                      
-                
-                   
+
                    
                  if(Gracz[x][y] == 1)
                  {
@@ -331,7 +332,9 @@ public class Client extends Application{
     }
    
     void odbieranie() throws Exception{
+
         Socket sock = new Socket("192.168.1.18",7890);
+
         OutputStream ostream = sock.getOutputStream();
         
         PrintWriter pwrite = new PrintWriter(ostream,true);
@@ -339,17 +342,26 @@ public class Client extends Application{
         InputStream istream = sock.getInputStream();
         BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
         
-        String x = "0",y="0",x_p="0",y_p="0";
         
         System.out.println(receiveRead.read());
+
         
         /*
         for(int i=1;i<=10;i++){
+
+       // String x = "0",y="0",x_p="0",y_p="0";
+        
+       /* for(int i=1;i<=10;i++){
+
           for(int j=1;j<=10;j++){
-                  Przeciwnik[i][j]=receiveRead.read();
+                  receiveRead.read();
                   System.out.println("Wyslalo sie!");
           }
+
       }    */   
+
+       
+
     } 
 
     @Override
@@ -362,8 +374,18 @@ public class Client extends Application{
             primaryStage.setResizable(false);
             primaryStage.show();
         }
-        public static void main(String[] args) 
+        public static void main(String[] args) throws IOException 
         {
+            Socket sock = new Socket("25.56.18.159",7890);
+        OutputStream ostream = sock.getOutputStream();
+        
+        PrintWriter pwrite = new PrintWriter(ostream,true);
+        
+        InputStream istream = sock.getInputStream();
+        BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
+        
+        System.out.println(receiveRead.read());
+            
              launch(args);
         }
     }

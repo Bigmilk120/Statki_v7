@@ -119,11 +119,20 @@ public class Serwer extends Application
     }
       
     public void dodajPlanszePrzeciwnik(){
+
       
         try{
         wysylanie();
         }catch(Exception e){System.out.println(e);};
        
+
+
+        try{
+        wysylanie();
+        }catch(Exception e){System.out.println(e);};
+       
+        
+
         planszaK = new VBox();
 
 
@@ -140,9 +149,12 @@ public class Serwer extends Application
                         
                    if(ilosc_statkow == 10){
                         Plansza.Pole p = (Plansza.Pole)event.getSource();   
+                        
+       
                         gra(event);
                    }
                         
+                         
                     });
                 
                 row.getChildren().add(c);              
@@ -158,6 +170,7 @@ public class Serwer extends Application
         planszaK.setPrefWidth(308);
 
     }
+    
     
     private void ustawienieZdjec() {
         tlo = new ImageView();
@@ -327,31 +340,49 @@ public class Serwer extends Application
     
     
     void wysylanie()throws Exception{
+        
         ServerSocket sersock = new ServerSocket(7890);
-
-        Socket sock = sersock.accept( );                          
+        Socket sock = sersock.accept();                          
 
 
         OutputStream ostream = sock.getOutputStream(); 
-
         PrintWriter pwrite = new PrintWriter(ostream, true);
 
 
         InputStream istream = sock.getInputStream();
-        BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
+
+
+
+        BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream)); 
+
         
         pwrite.println("x");
         pwrite.flush();
         
+
         /*String x = "1",y="1",x_p="0",y_p="0";            
         for(int i=1;i<=10;i++){
+
+        try{
+        pwrite.print("Wyslalo sie?");
+        }catch(Exception e){System.out.println("Nie wyslalo sie.");}
+        pwrite.flush();
+       
+        String x = "1",y="1",x_p="0",y_p="0";            
+
+       /* for(int i=1;i<=10;i++){
+
             for(int j=1;j<=10;j++){
                     pwrite.print(Gracz[i][j]);
                     pwrite.flush();
             }
+
         }       */
     }
-    
+     
+
+             
+
   public static void main(String[] args)
   {
        launch(args);
