@@ -99,14 +99,12 @@ public class Serwer extends Application
                            Plansza.Pole p = (Plansza.Pole)event.getSource();
                            if(sprawdz(p.x,p.y,typ,poziom,planszaG)){
                                 new Statek(typ,poziom,event,this);    
-                                ++ilosc_statkow;
-                               
-                                if(ilosc_statkow == 10 )
-                                {
-                                  System.out.println(ilosc_statkow);
-                                    try{   wysylanie();}catch(Exception e){}
-                                }
-                                    
+                                ilosc_statkow++;
+                                        if(ilosc_statkow == 10 )
+                                        {
+                                          System.out.println(ilosc_statkow);
+                                            try{   wysylanie();}catch(Exception e){}
+                                        }
                            }else
                                ilosc--;
                            
@@ -116,11 +114,13 @@ public class Serwer extends Application
                             }
                                 ilosc++;       
                                 
+                                
+                                
                     }catch(Exception e){}
                    
                 });
                 }
-            
+           
 
             planszaG.getChildren().add(row);
         }
@@ -134,8 +134,6 @@ public class Serwer extends Application
       
     public void dodajPlanszePrzeciwnik(){
 
-        
-      
         planszaK = new VBox();
 
 
@@ -152,13 +150,8 @@ public class Serwer extends Application
                         
                    if(ilosc_statkow == 10){
                         Plansza.Pole p = (Plansza.Pole)event.getSource();   
-                        
-                       
                         gra(event);
                         
-                        try{
-                        wysylanie();
-                        }catch(Exception e){System.out.println(e);};
                    }
                     });
                 
@@ -215,7 +208,7 @@ public class Serwer extends Application
         dodajPlanszePrzeciwnik();
         przegrana();
         wygrana();
-        
+
         
         root.getChildren().add(tlo);
         root.getChildren().add(planszaI);
