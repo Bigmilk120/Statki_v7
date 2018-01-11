@@ -130,7 +130,7 @@ public class Serwer extends Application
         // try{
         //wysylanie();
         //}catch(Exception e){System.out.println(e);};
-        
+      
         planszaK = new VBox();
 
 
@@ -154,7 +154,7 @@ public class Serwer extends Application
                         try{
                         wysylanie();
                         }catch(Exception e){System.out.println(e);};
-                       }      
+                   }
                     });
                 
                 row.getChildren().add(c);              

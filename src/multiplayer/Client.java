@@ -341,7 +341,7 @@ public class Client extends Application{
          
         System.out.println(receiveRead.readLine());
          
-    } 
+          }
 
     @Override
         public void start(Stage primaryStage) throws Exception {
