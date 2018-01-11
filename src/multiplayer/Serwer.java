@@ -119,11 +119,7 @@ public class Serwer extends Application
     }
       
     public void dodajPlanszePrzeciwnik(){
-       if(ilosc_statkow==10){
-        try{
-        wysylanie();
-        }catch(Exception e){System.out.println(e);};
-       }
+
         planszaK = new VBox();
 
 
@@ -141,8 +137,11 @@ public class Serwer extends Application
                    if(ilosc_statkow == 10){
                         Plansza.Pole p = (Plansza.Pole)event.getSource();   
                         gra(event);
-                   }
                         
+                        try{
+                        wysylanie();
+                        }catch(Exception e){System.out.println(e);};
+                       }      
                     });
                 
                 row.getChildren().add(c);              
@@ -327,25 +326,27 @@ public class Serwer extends Application
     
     
     void wysylanie()throws Exception{
+        
         ServerSocket sersock = new ServerSocket(7890);
-
-        Socket sock = sersock.accept( );                          
+        Socket sock = sersock.accept();                          
 
 
         OutputStream ostream = sock.getOutputStream(); 
-
         PrintWriter pwrite = new PrintWriter(ostream, true);
 
 
         InputStream istream = sock.getInputStream();
-        BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
-        String x = "1",y="1",x_p="0",y_p="0";            
-        for(int i=1;i<=10;i++){
+        BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream)); 
+        
+        pwrite.println("x");
+        pwrite.flush();
+        
+       /* for(int i=1;i<=10;i++){
             for(int j=1;j<=10;j++){
                     pwrite.print(Gracz[i][j]);
                     pwrite.flush();
             }
-        }       
+        } */      
     }
     
   public static void main(String[] args)
