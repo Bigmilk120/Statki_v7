@@ -332,7 +332,9 @@ public class Client extends Application{
     }
    
     void odbieranie() throws Exception{
-        Socket sock = new Socket("25.56.18.159",7890);
+
+        Socket sock = new Socket("192.168.8.58",7890);
+
         OutputStream ostream = sock.getOutputStream();
         
         PrintWriter pwrite = new PrintWriter(ostream,true);
