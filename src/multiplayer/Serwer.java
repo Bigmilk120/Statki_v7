@@ -172,14 +172,14 @@ public class Serwer extends Application
     
     private void ustawienieZdjec() {
         tlo = new ImageView();
-        tlo.setImage(new Image(getClass().getResource("tlo.png").toExternalForm()));
+        tlo.setImage(new Image(getClass().getResource("/obrazy/tlo.png").toExternalForm()));
         tlo.setFitWidth(800.0);
         tlo.setFitHeight(600.0);
         tlo.setId("tlo");
         tlo.setOpacity(0.5);
 
         planszaI = new ImageView();
-        planszaI.setImage(new Image(getClass().getResource("plansza.png").toExternalForm()));
+        planszaI.setImage(new Image(getClass().getResource("/obrazy/plansza.png").toExternalForm()));
         planszaI.setLayoutX(50.0);
         planszaI.setLayoutY(200.0);
         planszaI.setFitHeight(291.0);
@@ -187,7 +187,7 @@ public class Serwer extends Application
         planszaI.setSmooth(false);
 
         planszaII = new ImageView();
-        planszaII.setImage(new Image(getClass().getResource("plansza.png").toExternalForm()));
+        planszaII.setImage(new Image(getClass().getResource("/obrazy/plansza.png").toExternalForm()));
         planszaII.setLayoutX(447.0);
         planszaII.setLayoutY(200.0);
         planszaII.setFitHeight(291.0);
@@ -298,7 +298,7 @@ public class Serwer extends Application
     public void przegrana(){
         
         napis = new ImageView();
-        napis.setImage(new Image(getClass().getResource("napisP.png").toExternalForm()));
+        napis.setImage(new Image(getClass().getResource("/obrazy/napisP.png").toExternalForm()));
         napis.setFitWidth(800.0);
         napis.setFitHeight(600.0);
         napis.setLayoutX(0.0);
@@ -310,7 +310,7 @@ public class Serwer extends Application
     public void wygrana(){
         
         napis2 = new ImageView();
-        napis2.setImage(new Image(getClass().getResource("napisW.png").toExternalForm()));
+        napis2.setImage(new Image(getClass().getResource("/obrazy/napisW.png").toExternalForm()));
         napis2.setFitWidth(800.0);
         napis2.setFitHeight(600.0);
         napis2.setLayoutX(0.0);

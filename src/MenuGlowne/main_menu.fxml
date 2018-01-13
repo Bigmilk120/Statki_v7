@@ -10,7 +10,7 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="800.0" opacity="0.5">
          <image>
-            <Image url="@tlo.png" />
+            <Image url="@/obrazy/tlo.png" />
          </image>
       </ImageView>
       <Button fx:id="gvk" layoutX="195.0" layoutY="293.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="74.0" prefWidth="143.0" text="Gracz vs Komputer" />
