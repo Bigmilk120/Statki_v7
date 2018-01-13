@@ -116,7 +116,6 @@ public class Client extends Application{
                         root.getChildren().add(planszaK);
                         plansza_p.setVisible(false);
                     }
-                        
                     
                     });
                 }

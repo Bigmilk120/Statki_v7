@@ -24,9 +24,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 public class Serwer extends Application
 {
+    BorderPane root;
     public ImageView tlo;
     public ImageView planszaI;
     public ImageView planszaII;
+    private ImageView plansza_p;
     ImageView napis;
     ImageView napis2;
     VBox planszaG;
@@ -99,7 +101,7 @@ public class Serwer extends Application
                            Plansza.Pole p = (Plansza.Pole)event.getSource();
                            if(sprawdz(p.x,p.y,typ,poziom,planszaG)){
                                 new Statek(typ,poziom,event,this);    
-                                ilosc_statkow++;    
+                                ilosc_statkow++;
                            }else
                                ilosc--;
                            
@@ -108,15 +110,23 @@ public class Serwer extends Application
                                 ilosc=0;
                             }
                                 ilosc++;       
+                                
                     }catch(Exception e){}
-                   
-                     if(ilosc_statkow == 10){  try{ 
-                         polaczenie();
-                         wysylanie();
-                     }catch(Exception e){} } 
-                });
+                    
+                    if(ilosc_statkow == 10)
+                    {                        
+                        dodajPlanszePrzeciwnik();
+                        root.getChildren().add(planszaK);
+                        plansza_p.setVisible(false);
+                        
+                        try{
+                            polaczenie();
+                            wysylanie();         
+                        }catch(Exception e){}
+                    }
+                    
+                    });
                 }
-           
 
             planszaG.getChildren().add(row);
         }
@@ -132,7 +142,6 @@ public class Serwer extends Application
 
         planszaK = new VBox();
 
-
         for (int y = 0; y < 12; y++) {
             HBox row = new HBox();
             if(y==0||y==11)
@@ -144,11 +153,9 @@ public class Serwer extends Application
                 
                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
                         
-                   if(ilosc_statkow == 10){
                         Plansza.Pole p = (Plansza.Pole)event.getSource();   
-                        gra(event);
-                        
-                   }
+                        //gra(event);
+
                     });
                 
                 row.getChildren().add(c);              
@@ -189,6 +196,14 @@ public class Serwer extends Application
         planszaII.setFitHeight(291.0);
         planszaII.setFitWidth(303.0);
         planszaII.setSmooth(false);
+        
+        plansza_p = new ImageView();
+        plansza_p.setImage(new Image(getClass().getResource("/obrazy/plansza_p.png").toExternalForm()));
+        plansza_p.setLayoutX(477.0);
+        plansza_p.setLayoutY(228.0);
+        plansza_p.setFitHeight(259.0);
+        plansza_p.setFitWidth(269.0);
+        plansza_p.setSmooth(false);
     }
           
     public Plansza.Pole getPole(int x, int y,VBox plansza) {
@@ -197,54 +212,46 @@ public class Serwer extends Application
     
     private Parent gvk(){
 
-        BorderPane root = new BorderPane();
+        root = new BorderPane();
         root.setPrefSize(800, 600);
+
         ustawienieZdjec();
         dodajPlanszeGracz();
-        dodajPlanszePrzeciwnik();
         przegrana();
         wygrana();
-
+        
         
         root.getChildren().add(tlo);
         root.getChildren().add(planszaI);
         root.getChildren().add(planszaII);
         root.getChildren().add(planszaG);
-        root.getChildren().add(planszaK);
         root.getChildren().add(napis);
         root.getChildren().add(napis2);
-        
-
+        root.getChildren().add(plansza_p);
+ 
         return root;
+
     }
     
     public void gra(MouseEvent e){
-            Plansza.Pole p=(Plansza.Pole)e.getSource();
+              Plansza.Pole p=(Plansza.Pole)e.getSource();
 
-            if(!getPole(p.x,p.y,planszaK).trafiony)
-                if(Przeciwnik[p.x][p.y] == 1){
-                    getPole(p.x,p.y,planszaK).setFill(Color.RED);
-                    getPole(p.x,p.y,planszaK).trafiony = true;
-                    iloscPktZyciaPrzeciwnika--;
-                     if(iloscPktZyciaPrzeciwnika == 0 ) {
-                         try        
-                            {
-                                Thread.sleep(1000);
-                            } 
-                            catch(InterruptedException ex) 
-                            {
-                                Thread.currentThread().interrupt();
-                            }
-                         napis2.setVisible(true); }
-                }
-                else{
-                    getPole(p.x,p.y,planszaK).setFill(Color.YELLOW);
-                    getPole(p.x,p.y,planszaK).trafiony = true;
-                    tura_gracza=false;
-                }
-            
-       
-        }
+              if(!getPole(p.x,p.y,planszaK).trafiony)
+                  if(Przeciwnik[p.x][p.y] == 1){
+                      getPole(p.x,p.y,planszaK).setFill(Color.RED);
+                      getPole(p.x,p.y,planszaK).trafiony = true;
+                      iloscPktZyciaPrzeciwnika--;
+                       if(iloscPktZyciaPrzeciwnika == 0 ) {
+
+                           napis2.setVisible(true); }
+                  }
+                  else{
+                      getPole(p.x,p.y,planszaK).setFill(Color.YELLOW);
+                      getPole(p.x,p.y,planszaK).trafiony = true;
+                      tura_gracza=false;
+                 }
+
+          }
    
     public void przegrana(){
         
