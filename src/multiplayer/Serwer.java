@@ -99,12 +99,7 @@ public class Serwer extends Application
                            Plansza.Pole p = (Plansza.Pole)event.getSource();
                            if(sprawdz(p.x,p.y,typ,poziom,planszaG)){
                                 new Statek(typ,poziom,event,this);    
-                                ilosc_statkow++;
-                                        if(ilosc_statkow == 10 )
-                                        {
-                                          System.out.println(ilosc_statkow);
-                                            try{   wysylanie();}catch(Exception e){}
-                                        }
+                                ilosc_statkow++;    
                            }else
                                ilosc--;
                            
@@ -113,11 +108,14 @@ public class Serwer extends Application
                                 ilosc=0;
                             }
                                 ilosc++;       
-                                
-                                
-                                
                     }catch(Exception e){}
                    
+                      if(ilosc_statkow == 10 )
+                        {
+                          System.out.println(ilosc_statkow);
+                            try{   wysylanie();}catch(Exception e){}
+                        }
+                    
                 });
                 }
            
@@ -337,8 +335,9 @@ public class Serwer extends Application
         for(int i=1;i<=10;i++)
             for(int j=1;j<=10;j++)
             {
-                pwrite.println(Gracz[i][j]);
+                pwrite.print(Gracz[i][j]);
             }
+            
         pwrite.flush();
  
         }       

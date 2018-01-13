@@ -339,13 +339,19 @@ public class Client extends Application{
         InputStream istream = sock.getInputStream();
          BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
          
-       
+       int r;
          
          for(int i=1;i<=10;i++)
          {
              for(int j=1;j<=10;j++)
             {
-                  System.out.print( Przeciwnik[i][j] =  receiveRead.read());
+                r = receiveRead.read();
+                
+                if(r == 48)
+                  System.out.print(0);
+                 if(r == 49)
+                  System.out.print(1);
+
             }
              System.out.println();
          }
