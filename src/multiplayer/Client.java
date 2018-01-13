@@ -18,9 +18,11 @@ import javafx.stage.Stage;
 
 public class Client extends Application{
     
-        public ImageView tlo;
+    BorderPane root;
+    public ImageView tlo;
     public ImageView planszaI;
     public ImageView planszaII;
+    private ImageView plansza_p;
     ImageView napis;
     ImageView napis2;
     VBox planszaG;
@@ -35,6 +37,7 @@ public class Client extends Application{
     
     int[][] Przeciwnik = new int[12][12];
     int[][] Gracz = new int[12][12];
+    
     
     boolean sprawdz(int x,int y, int dl, boolean poziomo,VBox plansza){
         
@@ -93,7 +96,7 @@ public class Client extends Application{
                            Plansza.Pole p = (Plansza.Pole)event.getSource();
                            if(sprawdz(p.x,p.y,typ,poziom,planszaG)){
                                 new Statek(typ,poziom,event,this);    
-                                ++ilosc_statkow;
+                                ilosc_statkow++;
                            }else
                                ilosc--;
                            
@@ -104,10 +107,19 @@ public class Client extends Application{
                                 ilosc++;       
                                 
                     }catch(Exception e){}
-                   
-                });
+                    
+                    if(ilosc_statkow == 10)
+                    {
+                        System.out.println("YEAHHHH");
+                        
+                        dodajPlanszePrzeciwnik();
+                        root.getChildren().add(planszaK);
+                        plansza_p.setVisible(false);
+                    }
+                        
+                    
+                    });
                 }
-            
 
             planszaG.getChildren().add(row);
         }
@@ -120,9 +132,12 @@ public class Client extends Application{
     }
       
     public void dodajPlanszePrzeciwnik(){
-        
-  
-           
+
+        try{  
+            polaczenie();
+            odbieranie();
+          }catch(Exception e){}
+       
         
         planszaK = new VBox();
        
@@ -136,17 +151,16 @@ public class Client extends Application{
                 if(x==0||x==11)
                     c.setVisible(false);
                 
-                
-                
+ 
                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
                         
                    if(ilosc_statkow == 10){
+                       
                         Plansza.Pole p = (Plansza.Pole)event.getSource();   
-                        gra(event);
-                              
+                        gra(event);     
                    }
                         
-                    });
+                });
                 
                 row.getChildren().add(c);              
             }
@@ -185,6 +199,14 @@ public class Client extends Application{
         planszaII.setFitHeight(291.0);
         planszaII.setFitWidth(303.0);
         planszaII.setSmooth(false);
+        
+        plansza_p = new ImageView();
+        plansza_p.setImage(new Image(getClass().getResource("/obrazy/plansza_p.png").toExternalForm()));
+        plansza_p.setLayoutX(477.0);
+        plansza_p.setLayoutY(228.0);
+        plansza_p.setFitHeight(259.0);
+        plansza_p.setFitWidth(269.0);
+        plansza_p.setSmooth(false);
     }
           
     public Plansza.Pole getPole(int x, int y,VBox plansza) {
@@ -193,25 +215,23 @@ public class Client extends Application{
     
     private Parent gvk(){
 
-        BorderPane root = new BorderPane();
+        root = new BorderPane();
         root.setPrefSize(800, 600);
 
         ustawienieZdjec();
         dodajPlanszeGracz();
-        dodajPlanszePrzeciwnik();
         przegrana();
         wygrana();
-        try{  odbieranie(); }catch(Exception e){ e.printStackTrace();};
+        
         
         root.getChildren().add(tlo);
         root.getChildren().add(planszaI);
         root.getChildren().add(planszaII);
         root.getChildren().add(planszaG);
-        root.getChildren().add(planszaK);
         root.getChildren().add(napis);
         root.getChildren().add(napis2);
-    
-
+        root.getChildren().add(plansza_p);
+ 
         return root;
     }
     
@@ -224,84 +244,15 @@ public class Client extends Application{
                     getPole(p.x,p.y,planszaK).trafiony = true;
                     iloscPktZyciaPrzeciwnika--;
                      if(iloscPktZyciaPrzeciwnika == 0 ) {
-                         try        
-                            {
-                                Thread.sleep(1000);
-                            } 
-                            catch(InterruptedException ex) 
-                            {
-                                Thread.currentThread().interrupt();
-                            }
+
                          napis2.setVisible(true); }
                 }
                 else{
                     getPole(p.x,p.y,planszaK).setFill(Color.YELLOW);
                     getPole(p.x,p.y,planszaK).trafiony = true;
                     tura_gracza=false;
-               
-             Random rand=new Random();          
-                   int x,y;
-
-                   x = rand.nextInt(10)+1;
-                   y = rand.nextInt(10)+1;
-
-                   boolean traf = getPole(x, y, planszaG).trafiony;
-
-                   if(traf)
-                   {
-                       do{
-                           
-                           x = rand.nextInt(10)+1;
-                           y = rand.nextInt(10)+1;  
-                       }while(getPole(x, y, planszaG).trafiony);                              
-                   }
-                     
-
-                   
-                 if(Gracz[x][y] == 1)
-                 {
-                     iloscPktZyciaGracza--;
-                     if(iloscPktZyciaGracza == 0 )  {  
-                         try        
-                            {
-                                Thread.sleep(1000);
-                            } 
-                            catch(InterruptedException ex) 
-                            {
-                                Thread.currentThread().interrupt();
-                            }
-                         napis.setVisible(true);}
-                     getPole(x,y,planszaG).setFill(Color.RED);
-                     getPole(x, y, planszaG).trafiony =  true; 
-
-                     do{
-                     
-                         do{
-                             
-                           x = rand.nextInt(10)+1;
-                           y = rand.nextInt(10)+1;  
-                       }while(getPole(x, y, planszaG).trafiony);
-                         
-                       if(Gracz[x][y] == 1)
-                       {                    
-                            getPole(x,y,planszaG).setFill(Color.RED);
-                            getPole(x, y, planszaG).trafiony =  true; 
-                            iloscPktZyciaGracza--;
-                            if(iloscPktZyciaGracza == 0 )  {  napis.setVisible(true);}
-                       }else
-                       {
-                           getPole(x,y,planszaG).setFill(Color.YELLOW);
-                           getPole(x, y, planszaG).trafiony =  true;
-                       }     
-                     }while(Gracz[x][y] == 1);                                  
-                     
-                 }else{
-                           getPole(x,y,planszaG).setFill(Color.YELLOW);
-                           getPole(x, y, planszaG).trafiony =  true;
-                           tura_gracza=true;
-                       }     
-            }
-
+               }
+            
         }
     
     public void przegrana(){
@@ -327,49 +278,75 @@ public class Client extends Application{
         napis2.setId("Wygrana");    
         napis2.setVisible(false);
     }
-   
-    void odbieranie() throws Exception{
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Scene scene = new Scene(gvk());
+        primaryStage.setTitle("Client");
+        primaryStage.setScene(scene);
+        primaryStage.setWidth(806.0);
+        primaryStage.setHeight(630.0);
+        primaryStage.setResizable(false);
+        primaryStage.show();
+    }
 
-        Socket sock = new Socket("192.168.1.18", 3000);
+    public static void main(String[] args) throws IOException  {   launch(args);}
+    
+        /**
+         * Zmienne i Metody do Multiplayer
+        */
 
-        OutputStream ostream = sock.getOutputStream();
-        
-         PrintWriter pwrite = new PrintWriter(ostream, true);
-        
-        InputStream istream = sock.getInputStream();
-         BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
-         
-       int r;
-         
-         for(int i=1;i<=10;i++)
-         {
-             for(int j=1;j<=10;j++)
-            {
-                r = receiveRead.read();
-                
-                if(r == 48)
-                  System.out.print(0);
-                 if(r == 49)
-                  System.out.print(1);
+        ServerSocket sersock;
+        Socket sockS;
+        Socket sockC;
+        OutputStream ostream;
+        PrintWriter pwrite;
+        InputStream istream;
+        BufferedReader receiveRead;
+
+        void polaczenie() throws Exception{
+
+            sockC = new Socket("192.168.1.18", 3000);
+
+            System.out.println("Serwer dziala");                      
+
+            ostream = sockC.getOutputStream(); 
+            pwrite = new PrintWriter(ostream, true);
+
+            istream = sockC.getInputStream();
+            receiveRead = new BufferedReader(new InputStreamReader(istream));
+
+        }
+
+        void wysylanie()throws Exception{
+
+            for(int i=1;i<=10;i++)
+                for(int j=1;j<=10;j++)
+                {       
+                    pwrite.print(Gracz[i][j]);
+                }
+
+            pwrite.flush();
 
             }
-             System.out.println();
-         }
-            
-        
-          }
 
-    @Override
-        public void start(Stage primaryStage) throws Exception {
-            Scene scene = new Scene(gvk());
-            primaryStage.setTitle("Client");
-            primaryStage.setScene(scene);
-            primaryStage.setWidth(806.0);
-            primaryStage.setHeight(630.0);
-            primaryStage.setResizable(false);
-            primaryStage.show();
+        void odbieranie() throws Exception{
+
+             int r;
+
+             for(int i=1;i<=10;i++)
+             {
+                 for(int j=1;j<=10;j++)
+                {
+                    r = receiveRead.read();
+
+                    if(r == 48)
+                      Przeciwnik[i][j] = 0;
+                     if(r == 49)
+                      Przeciwnik[i][j] = 1;
+                }
+             }
         }
-        public static void main(String[] args) throws IOException  {   launch(args);}
-    }
-    
+}
+
     

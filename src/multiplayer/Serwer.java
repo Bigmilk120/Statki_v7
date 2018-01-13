@@ -110,12 +110,10 @@ public class Serwer extends Application
                                 ilosc++;       
                     }catch(Exception e){}
                    
-                      if(ilosc_statkow == 10 )
-                        {
-                          System.out.println(ilosc_statkow);
-                            try{   wysylanie();}catch(Exception e){}
-                        }
-                    
+                     if(ilosc_statkow == 10){  try{ 
+                         polaczenie();
+                         wysylanie();
+                     }catch(Exception e){} } 
                 });
                 }
            
@@ -223,7 +221,7 @@ public class Serwer extends Application
     public void gra(MouseEvent e){
             Plansza.Pole p=(Plansza.Pole)e.getSource();
 
-     /*       if(!getPole(p.x,p.y,planszaK).trafiony)
+            if(!getPole(p.x,p.y,planszaK).trafiony)
                 if(Przeciwnik[p.x][p.y] == 1){
                     getPole(p.x,p.y,planszaK).setFill(Color.RED);
                     getPole(p.x,p.y,planszaK).trafiony = true;
@@ -243,56 +241,11 @@ public class Serwer extends Application
                     getPole(p.x,p.y,planszaK).setFill(Color.YELLOW);
                     getPole(p.x,p.y,planszaK).trafiony = true;
                     tura_gracza=false;
-               
+                }
             
-             */      
-                   
-               /*  if(Gracz[x][y] == 1)
-                 {
-                     iloscPktZyciaGracza--;
-                     if(iloscPktZyciaGracza == 0 )  {  
-                         try        
-                            {
-                                Thread.sleep(1000);
-                            } 
-                            catch(InterruptedException ex) 
-                            {
-                                Thread.currentThread().interrupt();
-                            }
-                         napis.setVisible(true);}
-                     getPole(x,y,planszaG).setFill(Color.RED);
-                     getPole(x, y, planszaG).trafiony =  true; 
-
-                     do{
-                     
-                         do{
-                             
-                           x = rand.nextInt(10)+1;
-                           y = rand.nextInt(10)+1;  
-                       }while(getPole(x, y, planszaG).trafiony);
-                         
-                       if(Gracz[x][y] == 1)
-                       {                    
-                            getPole(x,y,planszaG).setFill(Color.RED);
-                            getPole(x, y, planszaG).trafiony =  true; 
-                            iloscPktZyciaGracza--;
-                            if(iloscPktZyciaGracza == 0 )  {  napis.setVisible(true);}
-                       }else
-                       {
-                           getPole(x,y,planszaG).setFill(Color.YELLOW);
-                           getPole(x, y, planszaG).trafiony =  true;
-                       }     
-                     }while(Gracz[x][y] == 1);                                  
-                     
-                 }else{
-                           getPole(x,y,planszaG).setFill(Color.YELLOW);
-                           getPole(x, y, planszaG).trafiony =  true;
-                           tura_gracza=true;
-                       }    
-            }*/ 
-
+       
         }
-    
+   
     public void przegrana(){
         
         napis = new ImageView();
@@ -316,32 +269,7 @@ public class Serwer extends Application
         napis2.setId("Wygrana");    
         napis2.setVisible(false);
     }
- 
-    void wysylanie()throws Exception{
-        
-        ServerSocket sersock = new ServerSocket(3000);
-        System.out.println("Server  ready for chatting");
-        Socket sock = sersock.accept();                          
-
-
-        OutputStream ostream = sock.getOutputStream(); 
-        PrintWriter pwrite = new PrintWriter(ostream, true);
-
-
-        InputStream istream = sock.getInputStream();
-        BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
-        
- 
-        for(int i=1;i<=10;i++)
-            for(int j=1;j<=10;j++)
-            {
-                pwrite.print(Gracz[i][j]);
-            }
-            
-        pwrite.flush();
- 
-        }       
-       
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -356,7 +284,70 @@ public class Serwer extends Application
     
     public static void main(String[] args) throws IOException { 
         launch(args);
-    }                    
+    }              
+    
+    /**
+     * Zmienne i Metody do Multiplayer
+    */
+    
+    ServerSocket sersock;
+    Socket sockS;
+    Socket sockC;
+    OutputStream ostream;
+    PrintWriter pwrite;
+    InputStream istream;
+    BufferedReader receiveRead;
+    
+    void polaczenie() throws Exception{
+        
+        sersock = new ServerSocket(3000);
+       
+        System.out.println("Serwer dziala");
+        
+        sockS = sersock.accept();  
+        sockC = new Socket("192.168.1.18", 3000);
 
+        ostream = sockS.getOutputStream(); 
+        pwrite = new PrintWriter(ostream, true);
+        
+        istream = sockS.getInputStream();
+        receiveRead = new BufferedReader(new InputStreamReader(istream));
+               
+    }
+    
+    void wysylanie()throws Exception{
+        
+        for(int i=1;i<=10;i++)
+            for(int j=1;j<=10;j++)
+            {       
+                pwrite.print(Gracz[i][j]);
+            }
+            
+        pwrite.flush();
+ 
+        }
+    
+    void odbieranie() throws Exception{
+
+         
+       int r;
+         
+         for(int i=1;i<=10;i++)
+         {
+             for(int j=1;j<=10;j++)
+            {
+                r = receiveRead.read();
+                
+                if(r == 48)
+                  Przeciwnik[i][j] = 0;
+                 if(r == 49)
+                  Przeciwnik[i][j] = 1;
+
+            }
+             System.out.println();
+         }
+
+    }
+       
 
 }                        
