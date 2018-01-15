@@ -121,7 +121,8 @@ public class Serwer extends Application
                         
                         try{
                             polaczenie();
-                            wysylanie();         
+                            wysylanie();  
+                            odbieranie();
                         }catch(Exception e){}
                     }
                     
@@ -154,7 +155,7 @@ public class Serwer extends Application
                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
                         
                         Plansza.Pole p = (Plansza.Pole)event.getSource();   
-                        //gra(event);
+                        gra(event);
 
                     });
                 

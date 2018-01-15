@@ -115,6 +115,12 @@ public class Client extends Application{
                         dodajPlanszePrzeciwnik();
                         root.getChildren().add(planszaK);
                         plansza_p.setVisible(false);
+                        
+                        try{  
+                            polaczenie();
+                            wysylanie();
+                            odbieranie();
+                          }catch(Exception e){}
                     }
                     
                     });
@@ -132,10 +138,7 @@ public class Client extends Application{
       
     public void dodajPlanszePrzeciwnik(){
 
-        try{  
-            polaczenie();
-            odbieranie();
-          }catch(Exception e){}
+        
        
         
         planszaK = new VBox();
