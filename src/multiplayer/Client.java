@@ -73,6 +73,8 @@ public class Client extends Application{
     
     public void dodajPlanszeGracz(){
 
+        
+        
         planszaG = new VBox();
         ilosc = 1;
         typ = 4;
@@ -110,8 +112,7 @@ public class Client extends Application{
                     
                     if(ilosc_statkow == 10)
                     {
-                        System.out.println("YEAHHHH");
-                        
+
                         dodajPlanszePrzeciwnik();
                         root.getChildren().add(planszaK);
                         plansza_p.setVisible(false);
@@ -138,9 +139,6 @@ public class Client extends Application{
       
     public void dodajPlanszePrzeciwnik(){
 
-        
-       
-        
         planszaK = new VBox();
        
 

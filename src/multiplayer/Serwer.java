@@ -78,6 +78,7 @@ public class Serwer extends Application
     
     public void dodajPlanszeGracz(){
 
+        
         planszaG = new VBox();
         ilosc = 1;
         typ = 4;
@@ -313,7 +314,7 @@ public class Serwer extends Application
         System.out.println("Serwer dziala");
         
         sockS = sersock.accept();  
-        sockC = new Socket("192.168.1.18", 3000);
+       // sockC = new Socket("192.168.1.18", 3000);
 
         ostream = sockS.getOutputStream(); 
         pwrite = new PrintWriter(ostream, true);
