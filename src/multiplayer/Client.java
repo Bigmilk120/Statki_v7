@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.Random;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -111,14 +112,16 @@ public class Client extends Application{
                     
                     if(ilosc_statkow == 10)
                     {     
-                       start_b.setVisible(true);
-                       start_b.addEventFilter(MouseEvent.MOUSE_PRESSED, e ->{
-                       
-                            try{
+                      start_b.setVisible(true);
+                       start_b.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+                           @Override
+                           public void handle(MouseEvent event) {
+                               try{
                                 polaczenie();
                                  wysylanieTab();
                                  odbieranieTab();
                             }catch(Exception ex){};
+                           }      
                        });
                         
                         dodajPlanszePrzeciwnik();
