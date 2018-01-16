@@ -4,8 +4,10 @@ import java.io.*;
 import java.net.*;
 import java.util.Random;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -34,6 +36,8 @@ public class Client extends Application{
     public int iloscPktZyciaGracza = 20;
     public int iloscPktZyciaPrzeciwnika = 20;
     public int ilosc_statkow=0;
+    public ImageView start_b;
+    Button btn;
     
     int[][] Przeciwnik = new int[12][12];
     int[][] Gracz = new int[12][12];
@@ -73,8 +77,6 @@ public class Client extends Application{
     
     public void dodajPlanszeGracz(){
 
-        
-        
         planszaG = new VBox();
         ilosc = 1;
         typ = 4;
@@ -111,29 +113,17 @@ public class Client extends Application{
                     }catch(Exception e){}
                     
                     if(ilosc_statkow == 10)
-<<<<<<< HEAD
                     {     
-                        
-=======
-                    {
-
->>>>>>> 9229c5cac1c23051518f14f1800a86d142e807ef
-                        dodajPlanszePrzeciwnik();
-                        root.getChildren().add(planszaK);
-                        plansza_p.setVisible(false);
-                        
                         try{  
-<<<<<<< HEAD
                            polaczenie();
                            wysylanieTab();
                            odbieranieTab();
                           }catch(Exception e){};
-=======
-                            polaczenie();
-                            wysylanie();
-                            odbieranie();
-                          }catch(Exception e){}
->>>>>>> 9229c5cac1c23051518f14f1800a86d142e807ef
+                        
+                        dodajPlanszePrzeciwnik();
+                        root.getChildren().add(planszaK);
+                        plansza_p.setVisible(false);     
+                        
                     }
                     
                     });
@@ -150,10 +140,9 @@ public class Client extends Application{
     }
       
     public void dodajPlanszePrzeciwnik(){
-
-        planszaK = new VBox();
-       
-
+        
+        planszaK = new VBox(); 
+        
         for (int y = 0; y < 12; y++) {
             HBox row = new HBox();
             if(y==0||y==11)
@@ -165,23 +154,13 @@ public class Client extends Application{
                 
  
                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
-<<<<<<< HEAD
 
-                    try{
-                        odbieranieXY();
-                        
+                     try{
+                        odbieranieXY();                      
                     }catch(Exception e){}
                    
                     Plansza.Pole p = (Plansza.Pole)event.getSource();   
                     gra(event);     
-=======
-                        
-                   if(ilosc_statkow == 10){
-                       
-                        Plansza.Pole p = (Plansza.Pole)event.getSource();   
-                        gra(event);     
-                   }
->>>>>>> 9229c5cac1c23051518f14f1800a86d142e807ef
                         
                 });
                 
@@ -230,6 +209,17 @@ public class Client extends Application{
         plansza_p.setFitHeight(259.0);
         plansza_p.setFitWidth(269.0);
         plansza_p.setSmooth(false);
+        
+        start_b = new ImageView();
+        start_b.setImage(new Image(getClass().getResource("/obrazy/dzialaj.jpg").toExternalForm()));
+        start_b.setLayoutX(100.0);
+        start_b.setLayoutY(50.0);
+        start_b.setFitHeight(100);
+        start_b.setFitWidth(50);
+        start_b.setVisible(false);
+        
+        btn=new Button("Dzialaj!");
+        btn.setVisible(true);
     }
           
     public Plansza.Pole getPole(int x, int y,VBox plansza) {
@@ -247,6 +237,7 @@ public class Client extends Application{
         wygrana();
         
         
+        root.getChildren().add(start_b);
         root.getChildren().add(tlo);
         root.getChildren().add(planszaI);
         root.getChildren().add(planszaII);
@@ -254,6 +245,7 @@ public class Client extends Application{
         root.getChildren().add(napis);
         root.getChildren().add(napis2);
         root.getChildren().add(plansza_p);
+        root.getChildren().add(btn);
  
         return root;
     }
@@ -329,7 +321,7 @@ public class Client extends Application{
 
         void polaczenie() throws Exception{
 
-            sockC = new Socket("192.168.1.18", 3000);
+            sockC = new Socket("127.0.0.1", 3000);
 
             System.out.println("Serwer dziala");                      
 
@@ -341,7 +333,7 @@ public class Client extends Application{
 
         }
 
-        void wysylanie()throws Exception{
+        void wysylanieTab()throws Exception{
 
             for(int i=1;i<=10;i++)
                 for(int j=1;j<=10;j++)
@@ -353,7 +345,7 @@ public class Client extends Application{
 
             }
 
-        void odbieranie() throws Exception{
+        void odbieranieTab() throws Exception{
 
              int r;
 
@@ -370,12 +362,10 @@ public class Client extends Application{
                 }
              }
         }
-<<<<<<< HEAD
         
         void odbieranieXY() throws Exception{
             
-           boolean war=true;
-           while(war)
+           while(true)
            {
 
                 Integer x;
@@ -384,8 +374,6 @@ public class Client extends Application{
                 // receiveRead.read();
                 //y=receiveRead.read();
                 System.out.print(Character.getNumericValue(receiveRead.read())); 
-
- 
            }
             
         }
@@ -398,8 +386,6 @@ public class Client extends Application{
         }
          
          
-=======
->>>>>>> 9229c5cac1c23051518f14f1800a86d142e807ef
 }
 
     
