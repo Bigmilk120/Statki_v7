@@ -115,15 +115,15 @@ public class Client extends Application{
                     if(ilosc_statkow == 10)
                     {     
                         
-                        dodajPlanszePrzeciwnik();
-                        root.getChildren().add(planszaK);
-                        plansza_p.setVisible(false);
-                        
-                        try{  
+                         try{  
                            polaczenie();
                            wysylanieTab();
                            odbieranieTab();
                           }catch(Exception e){};
+                        
+                        dodajPlanszePrzeciwnik();
+                        root.getChildren().add(planszaK);
+                        plansza_p.setVisible(false);
                     }
                     
                     });
@@ -142,7 +142,10 @@ public class Client extends Application{
     public void dodajPlanszePrzeciwnik(){
         
         planszaK = new VBox();
-       
+        
+        try{
+            odbieranieXY();
+        }catch(Exception e){}
 
         for (int y = 0; y < 12; y++) {
             HBox row = new HBox();
@@ -155,12 +158,7 @@ public class Client extends Application{
                 
  
                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
-
-                    try{
-                        odbieranieXY();
-                        
-                    }catch(Exception e){}
-                   
+         
                     Plansza.Pole p = (Plansza.Pole)event.getSource();   
                     gra(event);     
                         
@@ -368,7 +366,7 @@ public class Client extends Application{
         void odbieranieXY() throws Exception{
             
            boolean war=true;
-           while(war)
+           while(true)
            {
 
                 Integer x;
@@ -376,9 +374,10 @@ public class Client extends Application{
 
                 // receiveRead.read();
                 //y=receiveRead.read();
+               // if(receiveRead.read()!=-1){
                 System.out.print(Character.getNumericValue(receiveRead.read())); 
-
- 
+                war=false;
+                //}
            }
             
         }
