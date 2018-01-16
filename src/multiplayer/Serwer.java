@@ -12,7 +12,7 @@ import java.net.Socket;
 import java.util.HashSet;
 import java.util.Random;
 import javafx.application.Application;
-import javafx.event.EventType;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -118,11 +118,15 @@ public class Serwer extends Application
                 if(ilosc_statkow == 10)
                     {        
                        start_b.setVisible(true);
-                       start_b.addEventFilter(MouseEvent.MOUSE_PRESSED, e ->{
-                       
-                            try{
+                       start_b.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+                           @Override
+                           public void handle(MouseEvent event) {
+                               try{
                                 polaczenie();
+                                 wysylanieTab();
+                                 odbieranieTab();
                             }catch(Exception ex){};
+                           }      
                        });
                        
                        

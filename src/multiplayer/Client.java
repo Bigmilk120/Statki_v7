@@ -116,6 +116,8 @@ public class Client extends Application{
                        
                             try{
                                 polaczenie();
+                                 wysylanieTab();
+                                 odbieranieTab();
                             }catch(Exception ex){};
                        });
                         
@@ -124,9 +126,7 @@ public class Client extends Application{
                         plansza_p.setVisible(false);
                         
                         try{  
-                            polaczenie();
-                            wysylanieTab();
-                            odbieranieTab();
+                           
                           }catch(Exception e){}
                     }
                     
