@@ -363,18 +363,20 @@ public class Serwer extends Application
     }
        
     void odbieranieXY() throws Exception{
-
-    Integer x;
-    Integer y;
-
-    x=receiveRead.read();
-    System.out.println(x);
-
-}
-
+            
+            Integer x;
+            Integer y;
+            
+            x=receiveRead.read();
+            y=receiveRead.read();
+            System.out.println(x);
+            
+        }
+        
     void wysylanieXY(int x, int y) throws Exception{
-
-    pwrite.print(Przeciwnik[x][y]);
-    pwrite.flush();
-}    
+            
+            pwrite.print(x);
+            pwrite.print(y);
+            pwrite.flush();
+        }    
 }                        
