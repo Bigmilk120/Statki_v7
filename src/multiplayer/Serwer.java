@@ -9,13 +9,10 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashSet;
 import java.util.Random;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -43,7 +40,6 @@ public class Serwer extends Application
     public int iloscPktZyciaGracza = 20;
     public int iloscPktZyciaPrzeciwnika = 20;
     public int ilosc_statkow=0;
-    ImageView start_b;
     
     int[][] Przeciwnik = new int[12][12];
     int[][] Gracz = new int[12][12];
@@ -81,6 +77,7 @@ public class Serwer extends Application
     }
     
     public void dodajPlanszeGracz(){
+
         
         planszaG = new VBox();
         ilosc = 1;
@@ -114,25 +111,23 @@ public class Serwer extends Application
                                 ilosc=0;
                             }
                                 ilosc++;       
-                       
-                              
                                 
+                    }catch(Exception e){}
+                    
                     if(ilosc_statkow == 10)
-                    {        
-                       try{
-                           polaczenie();
-                           wysylanieTab();
-                           odbieranieTab();
-                        }catch(Exception e){}
-                        
+                    {                        
                         dodajPlanszePrzeciwnik();
                         root.getChildren().add(planszaK);
                         plansza_p.setVisible(false);
-                    }   
-                     }catch(Exception e){}
-
+                        
+                        try{
+                            polaczenie();
+                            wysylanie();  
+                            odbieranie();
+                        }catch(Exception e){}
+                    }
+                    
                     });
-                
                 }
 
             planszaG.getChildren().add(row);
@@ -146,12 +141,7 @@ public class Serwer extends Application
     }
       
     public void dodajPlanszePrzeciwnik(){
-        
-       /*  try{
-            polaczenie();
-         }catch(Exception e){}   
-       */ 
-        
+
         planszaK = new VBox();
 
         for (int y = 0; y < 12; y++) {
@@ -165,15 +155,8 @@ public class Serwer extends Application
                 
                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
                         
-                   
-                   Plansza.Pole p = (Plansza.Pole)event.getSource();   
-                        
-                    try{
-                        wysylanieXY(p.x, p.y);
-                        
-                    }catch(Exception e){}
-                   gra(event);
-                        
+                        Plansza.Pole p = (Plansza.Pole)event.getSource();   
+                        gra(event);
 
                     });
                 
@@ -223,15 +206,6 @@ public class Serwer extends Application
         plansza_p.setFitHeight(259.0);
         plansza_p.setFitWidth(269.0);
         plansza_p.setSmooth(false);
-        
-        
-        start_b = new ImageView();
-        start_b.setImage(new Image(getClass().getResource("/obrazy/dzialaj.jpg").toExternalForm()));
-        start_b.setLayoutX(100.0);
-        start_b.setLayoutY(50.0);
-        start_b.setFitHeight(100);
-        start_b.setFitWidth(50);
-        start_b.setVisible(false);
     }
           
     public Plansza.Pole getPole(int x, int y,VBox plansza) {
@@ -248,7 +222,7 @@ public class Serwer extends Application
         przegrana();
         wygrana();
         
-        root.getChildren().add(start_b);
+        
         root.getChildren().add(tlo);
         root.getChildren().add(planszaI);
         root.getChildren().add(planszaII);
@@ -256,7 +230,6 @@ public class Serwer extends Application
         root.getChildren().add(napis);
         root.getChildren().add(napis2);
         root.getChildren().add(plansza_p);
-       
  
         return root;
 
@@ -337,10 +310,11 @@ public class Serwer extends Application
     void polaczenie() throws Exception{
         
         sersock = new ServerSocket(3000);
-        sockS = sersock.accept();  
+       
+        System.out.println("Serwer dziala");
         
-         System.out.println("Serwer dziala");
-        //sockC = new Socket("192.168.1.18", 3000);
+        sockS = sersock.accept();  
+       // sockC = new Socket("192.168.1.18", 3000);
 
         ostream = sockS.getOutputStream(); 
         pwrite = new PrintWriter(ostream, true);
@@ -350,7 +324,7 @@ public class Serwer extends Application
                
     }
     
-    void wysylanieTab()throws Exception{
+    void wysylanie()throws Exception{
         
         for(int i=1;i<=10;i++)
             for(int j=1;j<=10;j++)
@@ -362,7 +336,7 @@ public class Serwer extends Application
  
         }
     
-    void odbieranieTab() throws Exception{
+    void odbieranie() throws Exception{
 
          
        int r;
@@ -384,33 +358,5 @@ public class Serwer extends Application
 
     }
        
-    void odbieranieXY() throws Exception{
-            
-           boolean war=true;
-           while(war)
-           {
-               if(sockS.getInputStream().read() != -1)
-                {
-                Integer x;
-                Integer y;
 
-                x=receiveRead.read();
-                y=receiveRead.read();
-                System.out.println(x); 
-                war=false;
-                }
-           }
-            
-        }
-        
-    void wysylanieXY(int x, int y) throws Exception{
-            
-            pwrite.print(""+x);
-           // pwrite.print(y);
-            pwrite.flush();
-        }    
-    
-
-    
-    
 }                        
