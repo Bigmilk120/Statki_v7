@@ -34,6 +34,7 @@ public class Client extends Application{
     public int iloscPktZyciaGracza = 20;
     public int iloscPktZyciaPrzeciwnika = 20;
     public int ilosc_statkow=0;
+    public ImageView start_b;
     
     int[][] Przeciwnik = new int[12][12];
     int[][] Gracz = new int[12][12];
@@ -110,6 +111,14 @@ public class Client extends Application{
                     
                     if(ilosc_statkow == 10)
                     {     
+                       start_b.setVisible(true);
+                       start_b.addEventFilter(MouseEvent.MOUSE_PRESSED, e ->{
+                       
+                            try{
+                                polaczenie();
+                            }catch(Exception ex){};
+                       });
+                        
                         dodajPlanszePrzeciwnik();
                         root.getChildren().add(planszaK);
                         plansza_p.setVisible(false);
@@ -205,6 +214,14 @@ public class Client extends Application{
         plansza_p.setFitHeight(259.0);
         plansza_p.setFitWidth(269.0);
         plansza_p.setSmooth(false);
+        
+        start_b = new ImageView();
+        start_b.setImage(new Image(getClass().getResource("/obrazy/dzialaj.jpg").toExternalForm()));
+        start_b.setLayoutX(100.0);
+        start_b.setLayoutY(50.0);
+        start_b.setFitHeight(100);
+        start_b.setFitWidth(50);
+        start_b.setVisible(false);
     }
           
     public Plansza.Pole getPole(int x, int y,VBox plansza) {
@@ -222,6 +239,7 @@ public class Client extends Application{
         wygrana();
         
         
+        root.getChildren().add(start_b);
         root.getChildren().add(tlo);
         root.getChildren().add(planszaI);
         root.getChildren().add(planszaII);
