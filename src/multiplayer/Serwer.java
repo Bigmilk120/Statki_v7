@@ -121,8 +121,8 @@ public class Serwer extends Application
                         
                         try{
                             polaczenie();
-                            wysylanie();  
-                            odbieranie();
+                            wysylanieTab();  
+                            odbieranieTab();
                         }catch(Exception e){}
                     }
                     
@@ -154,6 +154,11 @@ public class Serwer extends Application
                 
                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
                         
+                    try{
+                        polaczenie();
+                        
+                    }catch(Exception e){}
+                   
                         Plansza.Pole p = (Plansza.Pole)event.getSource();   
                         gra(event);
 
@@ -323,7 +328,7 @@ public class Serwer extends Application
                
     }
     
-    void wysylanie()throws Exception{
+    void wysylanieTab()throws Exception{
         
         for(int i=1;i<=10;i++)
             for(int j=1;j<=10;j++)
@@ -335,7 +340,7 @@ public class Serwer extends Application
  
         }
     
-    void odbieranie() throws Exception{
+    void odbieranieTab() throws Exception{
 
          
        int r;

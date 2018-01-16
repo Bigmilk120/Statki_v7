@@ -109,17 +109,15 @@ public class Client extends Application{
                     }catch(Exception e){}
                     
                     if(ilosc_statkow == 10)
-                    {
-                        System.out.println("YEAHHHH");
-                        
+                    {     
                         dodajPlanszePrzeciwnik();
                         root.getChildren().add(planszaK);
                         plansza_p.setVisible(false);
                         
                         try{  
                             polaczenie();
-                            wysylanie();
-                            odbieranie();
+                            wysylanieTab();
+                            odbieranieTab();
                           }catch(Exception e){}
                     }
                     
@@ -155,12 +153,13 @@ public class Client extends Application{
                 
  
                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
-                        
-                   if(ilosc_statkow == 10){
-                       
-                        Plansza.Pole p = (Plansza.Pole)event.getSource();   
-                        gra(event);     
-                   }
+
+                    try{
+                        polaczenie();
+                    }catch(Exception e){}
+                   
+                    Plansza.Pole p = (Plansza.Pole)event.getSource();   
+                    gra(event);     
                         
                 });
                 
@@ -320,7 +319,7 @@ public class Client extends Application{
 
         }
 
-        void wysylanie()throws Exception{
+        void wysylanieTab()throws Exception{
 
             for(int i=1;i<=10;i++)
                 for(int j=1;j<=10;j++)
@@ -332,7 +331,7 @@ public class Client extends Application{
 
             }
 
-        void odbieranie() throws Exception{
+        void odbieranieTab() throws Exception{
 
              int r;
 
