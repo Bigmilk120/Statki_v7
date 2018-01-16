@@ -154,13 +154,16 @@ public class Serwer extends Application
                 
                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
                         
+                   
+                   Plansza.Pole p = (Plansza.Pole)event.getSource();   
+                        
                     try{
                         polaczenie();
+                        wysylanieXY(p.x, p.y);
                         
                     }catch(Exception e){}
-                   
-                        Plansza.Pole p = (Plansza.Pole)event.getSource();   
-                        gra(event);
+                   gra(event);
+                        
 
                     });
                 
@@ -316,7 +319,6 @@ public class Serwer extends Application
         sersock = new ServerSocket(3000);
        
         System.out.println("Serwer dziala");
-        
         sockS = sersock.accept();  
         //sockC = new Socket("192.168.1.18", 3000);
 
@@ -364,19 +366,27 @@ public class Serwer extends Application
        
     void odbieranieXY() throws Exception{
             
-            Integer x;
-            Integer y;
-            
-            x=receiveRead.read();
-            y=receiveRead.read();
-            System.out.println(x);
+           boolean war=true;
+           while(war)
+           {
+               if(sockS.getInputStream().read() != -1)
+                {
+                Integer x;
+                Integer y;
+
+                x=receiveRead.read();
+                y=receiveRead.read();
+                System.out.println(x); 
+                war=false;
+                }
+           }
             
         }
         
     void wysylanieXY(int x, int y) throws Exception{
             
             pwrite.print(x);
-            pwrite.print(y);
+           // pwrite.print(y);
             pwrite.flush();
         }    
     

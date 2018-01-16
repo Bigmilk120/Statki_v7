@@ -348,12 +348,20 @@ public class Client extends Application{
         
         void odbieranieXY() throws Exception{
             
-            Integer x;
-            Integer y;
-            
-            x=receiveRead.read();
-            y=receiveRead.read();
-            System.out.println(x);
+           boolean war=true;
+           while(war)
+           {
+               if(sockS.getInputStream().read() != -1)
+                {
+                Integer x;
+                Integer y;
+
+                x=receiveRead.read();
+                y=receiveRead.read();
+                System.out.println(x); 
+                war=false;
+                }
+           }
             
         }
         
