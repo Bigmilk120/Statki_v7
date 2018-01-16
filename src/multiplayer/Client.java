@@ -135,9 +135,6 @@ public class Client extends Application{
     }
       
     public void dodajPlanszePrzeciwnik(){
-
-        
-       
         
         planszaK = new VBox();
        
