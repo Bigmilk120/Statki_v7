@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -36,6 +37,7 @@ public class Client extends Application{
     public int iloscPktZyciaPrzeciwnika = 20;
     public int ilosc_statkow=0;
     public ImageView start_b;
+    Button btn;
     
     int[][] Przeciwnik = new int[12][12];
     int[][] Gracz = new int[12][12];
@@ -112,25 +114,16 @@ public class Client extends Application{
                     
                     if(ilosc_statkow == 10)
                     {     
-                      start_b.setVisible(true);
-                       start_b.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
-                           @Override
-                           public void handle(MouseEvent event) {
-                               try{
-                                polaczenie();
-                                 wysylanieTab();
-                                 odbieranieTab();
-                            }catch(Exception ex){};
-                           }      
-                       });
                         
                         dodajPlanszePrzeciwnik();
                         root.getChildren().add(planszaK);
                         plansza_p.setVisible(false);
                         
                         try{  
-                           
-                          }catch(Exception e){}
+                           polaczenie();
+                           wysylanieTab();
+                           odbieranieTab();
+                          }catch(Exception e){};
                     }
                     
                     });
@@ -164,7 +157,8 @@ public class Client extends Application{
                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
 
                     try{
-                        polaczenie();
+                        odbieranieXY();
+                        
                     }catch(Exception e){}
                    
                     Plansza.Pole p = (Plansza.Pole)event.getSource();   
@@ -225,6 +219,9 @@ public class Client extends Application{
         start_b.setFitHeight(100);
         start_b.setFitWidth(50);
         start_b.setVisible(false);
+        
+        btn=new Button("Dzialaj!");
+        btn.setVisible(true);
     }
           
     public Plansza.Pole getPole(int x, int y,VBox plansza) {
@@ -250,6 +247,7 @@ public class Client extends Application{
         root.getChildren().add(napis);
         root.getChildren().add(napis2);
         root.getChildren().add(plansza_p);
+        root.getChildren().add(btn);
  
         return root;
     }
@@ -325,7 +323,7 @@ public class Client extends Application{
 
         void polaczenie() throws Exception{
 
-            sockC = new Socket("192.168.43.170", 3000);
+            sockC = new Socket("127.0.0.1", 3000);
 
             System.out.println("Serwer dziala");                      
 
@@ -370,19 +368,19 @@ public class Client extends Application{
         void odbieranieXY() throws Exception{
             
            boolean war=true;
-           while(war)
-           {
-               if(sockS.getInputStream().read() != -1)
-                {
+           //while(war)
+           //{
+               //if(sockS.getInputStream().read() != -1)
+               // {
                 Integer x;
                 Integer y;
 
-                x=receiveRead.read();
-                y=receiveRead.read();
-                System.out.println(x); 
+                // receiveRead.read();
+               // y=receiveRead.read();
+                System.out.println(receiveRead.read()); 
                 war=false;
-                }
-           }
+               // }
+          // }
             
         }
         

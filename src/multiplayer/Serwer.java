@@ -81,7 +81,7 @@ public class Serwer extends Application
     }
     
     public void dodajPlanszeGracz(){
-
+        
         planszaG = new VBox();
         ilosc = 1;
         typ = 4;
@@ -114,23 +114,13 @@ public class Serwer extends Application
                                 ilosc=0;
                             }
                                 ilosc++;       
+                       
+                              
                                 
-                if(ilosc_statkow == 10)
+                    if(ilosc_statkow == 10)
                     {        
-                       start_b.setVisible(true);
-                       start_b.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
-                           @Override
-                           public void handle(MouseEvent event) {
-                               try{
-                                polaczenie();
-                                 wysylanieTab();
-                                 odbieranieTab();
-                            }catch(Exception ex){};
-                           }      
-                       });
-                       
-                       
                        try{
+                           polaczenie();
                            wysylanieTab();
                            odbieranieTab();
                         }catch(Exception e){}
@@ -138,12 +128,11 @@ public class Serwer extends Application
                         dodajPlanszePrzeciwnik();
                         root.getChildren().add(planszaK);
                         plansza_p.setVisible(false);
-   
-                    }    
-                                
-                    }catch(Exception e){}
+                    }   
+                     }catch(Exception e){}
 
                     });
+                
                 }
 
             planszaG.getChildren().add(row);
@@ -179,11 +168,10 @@ public class Serwer extends Application
                    
                    Plansza.Pole p = (Plansza.Pole)event.getSource();   
                         
-                   /* try{
-                        polaczenie();
+                    try{
                         wysylanieXY(p.x, p.y);
                         
-                    }catch(Exception e){}*/
+                    }catch(Exception e){}
                    gra(event);
                         
 
@@ -349,9 +337,9 @@ public class Serwer extends Application
     void polaczenie() throws Exception{
         
         sersock = new ServerSocket(3000);
-       
-        System.out.println("Serwer dziala");
         sockS = sersock.accept();  
+        
+         System.out.println("Serwer dziala");
         //sockC = new Socket("192.168.1.18", 3000);
 
         ostream = sockS.getOutputStream(); 
@@ -417,7 +405,7 @@ public class Serwer extends Application
         
     void wysylanieXY(int x, int y) throws Exception{
             
-            pwrite.print(x);
+            pwrite.print(""+x);
            // pwrite.print(y);
             pwrite.flush();
         }    
