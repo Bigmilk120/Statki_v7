@@ -379,4 +379,8 @@ public class Serwer extends Application
             pwrite.print(y);
             pwrite.flush();
         }    
+    
+    
+    
+    
 }                        
