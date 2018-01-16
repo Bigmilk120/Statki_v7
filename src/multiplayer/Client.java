@@ -308,7 +308,7 @@ public class Client extends Application{
 
         void polaczenie() throws Exception{
 
-            sockC = new Socket("192.168.1.18", 3000);
+            sockC = new Socket("192.168.43.170", 3000);
 
             System.out.println("Serwer dziala");                      
 
