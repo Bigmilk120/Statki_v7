@@ -368,19 +368,18 @@ public class Client extends Application{
         void odbieranieXY() throws Exception{
             
            boolean war=true;
-           //while(war)
-           //{
-               //if(sockS.getInputStream().read() != -1)
-               // {
+           while(war)
+           {
+
                 Integer x;
                 Integer y;
 
                 // receiveRead.read();
-               // y=receiveRead.read();
-                System.out.println(receiveRead.read()); 
-                war=false;
-               // }
-          // }
+                //y=receiveRead.read();
+                System.out.print(Character.getNumericValue(receiveRead.read())); 
+
+ 
+           }
             
         }
         
