@@ -171,7 +171,6 @@ public class Client extends Application{
                             tura++;
                         }
                         if(iloscPktZyciaPrzeciwnika==0){
-                           // napis2.setVisible(true);
                             planszaK.setVisible(false);
                             System.out.println("Zakonczono na turze: "+tura);
                             try {

@@ -173,7 +173,6 @@ public class Serwer extends Application
                             tura++;
                         }
                         if(iloscPktZyciaPrzeciwnika==0){
-                            napis2.setVisible(true);
                             planszaK.setVisible(false);
                             System.out.println("Zakonczono na turze: "+tura);
                             try {
@@ -437,6 +436,7 @@ public class Serwer extends Application
      
     void sprawdzanie_wygranej() throws IOException{
         sersock = new ServerSocket(3001);
+        
         sockS = sersock.accept();  
         
          System.out.println("Serwer dziala");
