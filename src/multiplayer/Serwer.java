@@ -162,14 +162,19 @@ public class Serwer extends Application
                         
                    
                    Plansza.Pole p = (Plansza.Pole)event.getSource();   
-                        
+                    
                     try{
-                        wysylanieXY(p.x, p.y);
-                        
+                       if(wysylanieXY(p.x, p.y))
+                       {
+                          tura_gracza = true;
+                       }   
+                       else{
+                            odbieranieXY();
+                           tura_gracza = false;
+                       }  
                     }catch(Exception e){}
-                   gra(event);
-                        
-
+                    
+                     gra(event);
                     });
                 
                 row.getChildren().add(c);              
@@ -184,7 +189,7 @@ public class Serwer extends Application
         planszaK.setPrefHeight(291);
         planszaK.setPrefWidth(308);
 
-    
+            
     }
     
     private void ustawienieZdjec() {
@@ -379,30 +384,56 @@ public class Serwer extends Application
 
     }
        
-    void odbieranieXY() throws Exception{
+    boolean odbieranieXY() throws Exception{
             
-           boolean war=true;
-           while(war)
+           boolean trafiony = false;
+            
+           while(!tura_gracza)
            {
-               Integer x;
+                Integer x;
                 Integer y;
 
                 x = Character.getNumericValue(receiveRead.read());
                 y= Character.getNumericValue(receiveRead.read());
                 
-                System.out.println(x+" "+y);
+                if(Gracz[x][y]!=1)
+                {
+                    getPole(x, y, planszaG).setFill(Color.YELLOW);
+                    tura_gracza=false;
+                    trafiony = false;
+                }     
+                else
+                {
+                  getPole(x, y, planszaG).setFill(Color.BLUE);
+                  trafiony = true;
+                }
+                   
+                
+                System.out.println(x+" "+y);   
            }
-            
+             return trafiony;
         }
         
-    void wysylanieXY(int x, int y) throws Exception{
+    boolean wysylanieXY(int x, int y) throws Exception{
             
+            boolean trafiony = false;
+            
+            if(tura_gracza)
+            {
             pwrite.print(x);
             pwrite.print(y);
             pwrite.flush();
+            
+                if(Przeciwnik[x][y]!=1)
+                    tura_gracza = false;
+                
+            }else{  
+                trafiony = true;
+                tura_gracza = true;
+            }
+            
+                        
+            return trafiony;
         }    
-    
-
-    
-    
+     
 }                        

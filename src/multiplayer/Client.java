@@ -31,7 +31,7 @@ public class Client extends Application{
     VBox planszaK;
     int typ;
     int ilosc;
-    public boolean tura_gracza=true;
+    public boolean tura_gracza=false;
     int tura=0;
     public int iloscPktZyciaGracza = 20;
     public int iloscPktZyciaPrzeciwnika = 20;
@@ -154,12 +154,22 @@ public class Client extends Application{
                 
  
                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
-
-                   
                    
                     Plansza.Pole p = (Plansza.Pole)event.getSource();   
-                    gra(event);     
-                        
+       
+                    try{
+                       if(wysylanieXY(p.x, p.y))
+                       {
+                          tura_gracza = true;
+                       }   
+                       else{
+                            odbieranieXY();
+                           tura_gracza = false;
+                       }  
+                    }catch(Exception e){}
+                      
+                    gra(event);
+                    
                 });
                 
                 row.getChildren().add(c);              
@@ -173,10 +183,8 @@ public class Client extends Application{
         planszaK.setLayoutY(201.0);
         planszaK.setPrefHeight(291);
         planszaK.setPrefWidth(308);
-           try{
-            odbieranieXY();                      
-         }catch(Exception e){}
-
+        
+           
     }
     
     private void ustawienieZdjec() {
@@ -269,6 +277,11 @@ public class Client extends Application{
                     tura_gracza=false;
                }
             
+            if(iloscPktZyciaGracza == 0)
+            {
+                System.out.println("Przegarna");
+                przegrana();
+            }
         }
     
     public void przegrana(){
@@ -364,32 +377,58 @@ public class Client extends Application{
              }
         }
         
-        void odbieranieXY() throws Exception{
-            
-           while(tura_gracza)
+        boolean odbieranieXY() throws Exception{
+         
+           boolean trafiony = false;
+           
+           while(!tura_gracza)
            {
-
                 Integer x;
                 Integer y;
-
+                
                 x = Character.getNumericValue(receiveRead.read());
                 y= Character.getNumericValue(receiveRead.read());
+    
                 if(Gracz[x][y]!=1)
+                {
+                    getPole(x, y, planszaG).setFill(Color.YELLOW);
                     tura_gracza=false;
-                System.out.println(x+" "+y);
+                    trafiony = false;
+                }     
+                else
+                {
+                  getPole(x, y, planszaG).setFill(Color.BLUE);
+                  trafiony = true;
+                }
+                   
                 
+                System.out.println(x+" "+y);   
            }
-            
+             return trafiony;
         }
         
-         void wysylanieXY(int x, int y) throws Exception{
+        boolean wysylanieXY(int x, int y) throws Exception{
             
+            boolean trafiony = false;
+            
+            if(tura_gracza)
+            {
             pwrite.print(x);
             pwrite.print(y);
             pwrite.flush();
-        }
-         
-         
+            
+                if(Przeciwnik[x][y]!=1)
+                {
+                     tura_gracza = false;
+                }         
+                }else{  
+                    trafiony = true;
+                    tura_gracza = true;
+            }
+            
+                        
+            return trafiony;
+        }        
 }
 
     
