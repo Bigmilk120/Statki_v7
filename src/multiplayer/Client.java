@@ -371,9 +371,11 @@ public class Client extends Application{
                 Integer x;
                 Integer y;
 
-                // receiveRead.read();
-                //y=receiveRead.read();
-                System.out.print(Character.getNumericValue(receiveRead.read())); 
+                x = Character.getNumericValue(receiveRead.read());
+                y= Character.getNumericValue(receiveRead.read());
+                
+                System.out.println(x+" "+y);
+                
            }
             
         }

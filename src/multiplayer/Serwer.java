@@ -384,24 +384,21 @@ public class Serwer extends Application
            boolean war=true;
            while(war)
            {
-               if(sockS.getInputStream().read() != -1)
-                {
-                Integer x;
+               Integer x;
                 Integer y;
 
-                x=receiveRead.read();
-                y=receiveRead.read();
-                System.out.println(x); 
-                war=false;
-                }
+                x = Character.getNumericValue(receiveRead.read());
+                y= Character.getNumericValue(receiveRead.read());
+                
+                System.out.println(x+" "+y);
            }
             
         }
         
     void wysylanieXY(int x, int y) throws Exception{
             
-            pwrite.print(""+x);
-           // pwrite.print(y);
+            pwrite.print(x);
+            pwrite.print(y);
             pwrite.flush();
         }    
     
