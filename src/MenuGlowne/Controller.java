@@ -24,5 +24,22 @@ public class Controller{
             System.out.println("Can't load window");
         }
     }
-
+    public void handleButtonAction2(javafx.event.ActionEvent actionEvent) {
+        try{
+           multiplayer.Serwer m = new multiplayer.Serwer();
+           m.start(new Stage());
+           
+        }catch(Exception e){
+            System.out.println("Can't load window");
+        }
+    }
+    public void handleButtonAction3(javafx.event.ActionEvent actionEvent) {
+        try{
+           multiplayer.Client m = new multiplayer.Client();
+           m.start(new Stage());
+           
+        }catch(Exception e){
+            System.out.println("Can't load window");
+        }
+    }
 }

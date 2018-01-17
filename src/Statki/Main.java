@@ -438,7 +438,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
        
-          Scene scene = new Scene(gvk());
+        Scene scene = new Scene(gvk());
         primaryStage.setTitle("Gracz kontra Komputer");
         primaryStage.setScene(scene);
         primaryStage.setWidth(806.0);
