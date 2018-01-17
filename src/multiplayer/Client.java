@@ -3,6 +3,8 @@ package multiplayer;
 import java.io.*;
 import java.net.*;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
@@ -33,6 +35,7 @@ public class Client extends Application{
     int ilosc;
     public boolean tura_gracza=false;
     int tura=0;
+    int wynik_przeciwnika=0;
     public int iloscPktZyciaGracza = 20;
     public int iloscPktZyciaPrzeciwnika = 20;
     public int ilosc_statkow=0;
@@ -151,29 +154,38 @@ public class Client extends Application{
                 Plansza.Pole c = new Plansza.Pole(x, y);
                 if(x==0||x==11)
                     c.setVisible(false);
+
                 
- 
-               c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
-                   
-                    Plansza.Pole p = (Plansza.Pole)event.getSource();   
-       
-                    try{
-                       if(wysylanieXY(p.x, p.y))
-                       {
-                          tura_gracza = true;
-                       }   
-                       else{
-                            odbieranieXY();
-                           tura_gracza = false;
-                       }  
-                    }catch(Exception e){}
-                      
-                    gra(event);
-                    
-                });
+                    c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
+                        
+                        
+                        Plansza.Pole p = (Plansza.Pole)event.getSource();
+                        if(Przeciwnik[p.x][p.y]==1&&getPole(p.x,p.y,planszaK).trafiony==false){
+                            getPole(p.x,p.y,planszaK).setFill(Color.RED);
+                            getPole(p.x,p.y,planszaK).trafiony = true;
+                            iloscPktZyciaPrzeciwnika--;
+                            tura++;
+                        }else if(getPole(p.x,p.y,planszaK).trafiony==false){
+                            getPole(p.x,p.y,planszaK).setFill(Color.YELLOW);
+                            getPole(p.x,p.y,planszaK).trafiony = true;
+                            tura++;
+                        }
+                        if(iloscPktZyciaPrzeciwnika==0){
+                           // napis2.setVisible(true);
+                            planszaK.setVisible(false);
+                            System.out.println("Zakonczono na turze: "+tura);
+                            try {
+                                sprawdzanie_wygranej();
+                            } catch (IOException ex) {
+                            } 
+                        }
+                        
+                     });
                 
-                row.getChildren().add(c);              
-            }
+                row.getChildren().add(c); 
+                        
+            }             
+            
 
             planszaK.getChildren().add(row);
         
@@ -252,14 +264,15 @@ public class Client extends Application{
         root.getChildren().add(planszaII);
         root.getChildren().add(planszaG);
         root.getChildren().add(napis);
-        root.getChildren().add(napis2);
+        
         root.getChildren().add(plansza_p);
+        root.getChildren().add(napis2);
         root.getChildren().add(btn);
  
         return root;
     }
     
-    public void gra(MouseEvent e){
+    /*public void gra(MouseEvent e){
             Plansza.Pole p=(Plansza.Pole)e.getSource();
 
             if(!getPole(p.x,p.y,planszaK).trafiony)
@@ -282,7 +295,7 @@ public class Client extends Application{
                 System.out.println("Przegarna");
                 przegrana();
             }
-        }
+        } */
     
     public void przegrana(){
         
@@ -407,7 +420,7 @@ public class Client extends Application{
              return trafiony;
         }
         
-        boolean wysylanieXY(int x, int y) throws Exception{
+        void wysylanieXY(int x, int y) throws Exception{
             
             boolean trafiony = false;
             
@@ -425,10 +438,31 @@ public class Client extends Application{
                     trafiony = true;
                     tura_gracza = true;
             }
+        }  
+        
+        void sprawdzanie_wygranej() throws IOException{
+        sockC = new Socket("127.0.0.1", 3001);
+
+        System.out.println("Serwer dziala");                      
+
+        ostream = sockC.getOutputStream(); 
+        pwrite = new PrintWriter(ostream, true);
+
+        istream = sockC.getInputStream();
+        receiveRead = new BufferedReader(new InputStreamReader(istream));
+        
+        pwrite.print(tura);
+        pwrite.flush();
+        
+        wynik_przeciwnika=receiveRead.read();
+        System.out.println(wynik_przeciwnika);
+        if(tura>wynik_przeciwnika)
+            napis2.setVisible(true);
+        else
+            napis.setVisible(true);
             
-                        
-            return trafiony;
-        }        
+    } 
+        
 }
 
     

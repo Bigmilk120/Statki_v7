@@ -40,6 +40,7 @@ public class Serwer extends Application
     int ilosc;
     public boolean tura_gracza=true;
     int tura=0;
+    int wynik_przeciwnika=0;
     public int iloscPktZyciaGracza = 20;
     public int iloscPktZyciaPrzeciwnika = 20;
     public int ilosc_statkow=0;
@@ -157,27 +158,33 @@ public class Serwer extends Application
                 Plansza.Pole c = new Plansza.Pole(x, y);
                 if(x==0||x==11)
                     c.setVisible(false);
-                
-               c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
+                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
                         
-                   
-                   Plansza.Pole p = (Plansza.Pole)event.getSource();   
-                    
-                    try{
-                       if(wysylanieXY(p.x, p.y))
-                       {
-                          tura_gracza = true;
-                       }   
-                       else{
-                            odbieranieXY();
-                           tura_gracza = false;
-                       }  
-                    }catch(Exception e){}
-                    
-                     gra(event);
-                    });
-                
-                row.getChildren().add(c);              
+                        
+                        Plansza.Pole p = (Plansza.Pole)event.getSource();
+                         if(Przeciwnik[p.x][p.y]==1&&getPole(p.x,p.y,planszaK).trafiony==false){
+                            getPole(p.x,p.y,planszaK).setFill(Color.RED);
+                            getPole(p.x,p.y,planszaK).trafiony = true;
+                            iloscPktZyciaPrzeciwnika--;
+                            tura++;
+                        }else if(getPole(p.x,p.y,planszaK).trafiony==false){
+                            getPole(p.x,p.y,planszaK).setFill(Color.YELLOW);
+                            getPole(p.x,p.y,planszaK).trafiony = true;
+                            tura++;
+                        }
+                        if(iloscPktZyciaPrzeciwnika==0){
+                            napis2.setVisible(true);
+                            planszaK.setVisible(false);
+                            System.out.println("Zakonczono na turze: "+tura);
+                            try {
+                                sprawdzanie_wygranej();
+                            } catch (IOException ex) {
+                            } 
+                        }
+                        
+                     });
+                row.getChildren().add(c); 
+                            
             }
 
             planszaK.getChildren().add(row);
@@ -262,7 +269,7 @@ public class Serwer extends Application
 
     }
     
-    public void gra(MouseEvent e){
+    /*public void gra(MouseEvent e){
               Plansza.Pole p=(Plansza.Pole)e.getSource();
 
               if(!getPole(p.x,p.y,planszaK).trafiony)
@@ -280,7 +287,7 @@ public class Serwer extends Application
                       tura_gracza=false;
                  }
 
-          }
+          } */
    
     public void przegrana(){
         
@@ -385,11 +392,7 @@ public class Serwer extends Application
     }
        
     boolean odbieranieXY() throws Exception{
-            
            boolean trafiony = false;
-            
-           while(!tura_gracza)
-           {
                 Integer x;
                 Integer y;
 
@@ -410,11 +413,10 @@ public class Serwer extends Application
                    
                 
                 System.out.println(x+" "+y);   
-           }
              return trafiony;
         }
         
-    boolean wysylanieXY(int x, int y) throws Exception{
+    void wysylanieXY(int x, int y) throws Exception{
             
             boolean trafiony = false;
             
@@ -431,9 +433,30 @@ public class Serwer extends Application
                 trafiony = true;
                 tura_gracza = true;
             }
-            
-                        
-            return trafiony;
         }    
      
+    void sprawdzanie_wygranej() throws IOException{
+        sersock = new ServerSocket(3001);
+        sockS = sersock.accept();  
+        
+         System.out.println("Serwer dziala");
+        //sockC = new Socket("192.168.1.18", 3000);
+
+        ostream = sockS.getOutputStream(); 
+        pwrite = new PrintWriter(ostream, true);
+        
+        istream = sockS.getInputStream();
+        receiveRead = new BufferedReader(new InputStreamReader(istream));
+        
+        pwrite.print(tura);
+        pwrite.flush();
+        
+        wynik_przeciwnika=receiveRead.read();
+        System.out.println(wynik_przeciwnika);
+        if(tura>wynik_przeciwnika)
+            napis2.setVisible(true);
+        else
+            napis.setVisible(true);
+            
+    } 
 }                        
