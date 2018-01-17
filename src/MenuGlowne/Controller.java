@@ -26,9 +26,10 @@ public class Controller{
     }
     public void handleButtonAction2(javafx.event.ActionEvent actionEvent) {
         try{
+          
            multiplayer.Serwer m = new multiplayer.Serwer();
            m.start(new Stage());
-           
+
         }catch(Exception e){
             System.out.println("Can't load window");
         }

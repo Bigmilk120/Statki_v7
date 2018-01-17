@@ -448,11 +448,12 @@ public class Serwer extends Application
         istream = sockS.getInputStream();
         receiveRead = new BufferedReader(new InputStreamReader(istream));
         
-        pwrite.print(tura);
+        pwrite.println(tura);
         pwrite.flush();
         
-        wynik_przeciwnika=receiveRead.read();
+        wynik_przeciwnika=Integer.valueOf(receiveRead.readLine());;
         System.out.println(wynik_przeciwnika);
+        System.out.println(tura);
         if(tura>wynik_przeciwnika)
             napis2.setVisible(true);
         else
