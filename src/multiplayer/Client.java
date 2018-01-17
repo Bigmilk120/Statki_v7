@@ -140,7 +140,7 @@ public class Client extends Application{
     }
       
     public void dodajPlanszePrzeciwnik(){
-        
+       
         planszaK = new VBox(); 
         
         for (int y = 0; y < 12; y++) {
@@ -155,9 +155,7 @@ public class Client extends Application{
  
                c.addEventFilter(MouseEvent.MOUSE_PRESSED, event ->{
 
-                     try{
-                        odbieranieXY();                      
-                    }catch(Exception e){}
+                   
                    
                     Plansza.Pole p = (Plansza.Pole)event.getSource();   
                     gra(event);     
@@ -175,6 +173,9 @@ public class Client extends Application{
         planszaK.setLayoutY(201.0);
         planszaK.setPrefHeight(291);
         planszaK.setPrefWidth(308);
+           try{
+            odbieranieXY();                      
+         }catch(Exception e){}
 
     }
     
@@ -365,7 +366,7 @@ public class Client extends Application{
         
         void odbieranieXY() throws Exception{
             
-           while(true)
+           while(tura_gracza)
            {
 
                 Integer x;
@@ -373,7 +374,8 @@ public class Client extends Application{
 
                 x = Character.getNumericValue(receiveRead.read());
                 y= Character.getNumericValue(receiveRead.read());
-                
+                if(Gracz[x][y]!=1)
+                    tura_gracza=false;
                 System.out.println(x+" "+y);
                 
            }
