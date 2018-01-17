@@ -454,7 +454,7 @@ public class Serwer extends Application
         wynik_przeciwnika=Integer.valueOf(receiveRead.readLine());;
         System.out.println(wynik_przeciwnika);
         System.out.println(tura);
-        if(tura>wynik_przeciwnika)
+        if(tura<=wynik_przeciwnika)
             napis2.setVisible(true);
         else
             napis.setVisible(true);

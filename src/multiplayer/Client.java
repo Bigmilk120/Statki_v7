@@ -348,7 +348,7 @@ public class Client extends Application{
 
         void polaczenie() throws Exception{
 
-            sockC = new Socket("127.0.0.1", 3000);
+            sockC = new Socket("25.56.43.225", 3000);
 
             System.out.println("Serwer dziala");                      
 
@@ -441,7 +441,7 @@ public class Client extends Application{
         }  
         
         void sprawdzanie_wygranej() throws IOException{
-        sockC = new Socket("127.0.0.1", 3001);
+        sockC = new Socket("25.56.43.225", 3001);
 
         System.out.println("Serwer dziala");                      
 
@@ -456,7 +456,7 @@ public class Client extends Application{
         
         wynik_przeciwnika=Integer.valueOf(receiveRead.readLine());
         System.out.println(wynik_przeciwnika);
-        if(tura>wynik_przeciwnika)
+        if(tura<=wynik_przeciwnika)
             napis2.setVisible(true);
         else
             napis.setVisible(true);
