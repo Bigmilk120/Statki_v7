@@ -2,15 +2,12 @@ package multiplayer;
 
 import Statki.Plansza.Pole;
 import javafx.scene.Parent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class Statek extends Parent{
 
-    private Integer typStatku;
+    final private Integer typStatku;
     private boolean poziomo = true;
     private Integer iloscPkt;
     private Double xMyszy;

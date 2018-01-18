@@ -1,17 +1,8 @@
 package MenuGlowne;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
-import Statki.Main.*;
 
-import static javax.swing.text.StyleConstants.Background;
+//import static javax.swing.text.StyleConstants.Background;
 /**
  * Klasa obsługująca zdarzenia.
  * @author Dimm

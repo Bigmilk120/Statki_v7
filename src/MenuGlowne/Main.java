@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 /**
  * Główna klasa gry, zawierająca główne menu.
@@ -13,6 +12,7 @@ import javafx.stage.Stage;
 public class Main extends Application  {
     /**
      * Funckja inicjująca menu główne.
+     * @throws java.lang.Exception
     */
     @Override
     public void start(Stage primaryStage) throws Exception{

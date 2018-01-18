@@ -2,11 +2,11 @@ package Statki;
 
 import Statki.Plansza.Pole;
 import javafx.scene.Parent;
-import javafx.scene.input.MouseButton;
+//import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
+//import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+//import javafx.scene.shape.Rectangle;
 /**
  * Klasa potrzebna do sprawdzania i tworzenia statków.
  * @author Dimm
@@ -16,7 +16,7 @@ public class Statek extends Parent{
     /**
      * Zmienne potrzebne do sprawdzania i tworzenia statków.
      */
-    private Integer typStatku;
+    private final Integer typStatku;
     private boolean poziomo = true;
     private Integer iloscPkt;
     private Double xMyszy;

@@ -1,34 +1,21 @@
 package Statki;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.event.EventTarget;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
-import javax.swing.*;
 import javafx.scene.image.*;
-
 import Statki.Plansza.Pole;
-import Statki.Plansza.Pole.*;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import static javafx.application.Application.launch;
 
-import static javafx.scene.input.MouseEvent.*;
+//import static javafx.scene.input.MouseEvent.*;
 
 public class Main extends Application {
 
