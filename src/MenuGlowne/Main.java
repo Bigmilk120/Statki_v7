@@ -6,9 +6,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-
+/**
+ * Główna klasa gry, zawierająca główne menu.
+ * @author Dimm
+ */
 public class Main extends Application  {
-
+    /**
+     * Funckja inicjująca menu główne.
+    */
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -19,7 +24,10 @@ public class Main extends Application  {
         
     }
 
-
+    /**
+     * Funkcja wywołująca menu główne.
+     * @param args zmienne dziedziczące z runnable, potrzebne do włączenia gry.
+     */
     public static void main(String[] args) {
         launch(args);
     }

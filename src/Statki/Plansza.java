@@ -11,24 +11,32 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
  
-
+/**
+ * Klasa przechowująca klasę Pole.
+ * @author Dimm
+ */
 public class Plansza extends Parent{
-
-    private GridPane plansza = new GridPane();
-    public boolean przeciwnik = true;
-    public int statki = 4;
-    
+    /**
+     * Domyślny konstruktor planszy.
+     */
     public Plansza(){
     }
-
+    /**
+     * Klasa dziedzicząca od Rectangle, ma w sobie
+     */
     public static class Pole extends Rectangle{
-
+        /**
+         * Zmienne potrzebne do inicjacji pola.
+         */
         public int x, y;
-        public Statek statek = null;
         public boolean trafiony = false;
-
         private Plansza plansza;
-
+        
+        /**
+         * Konstruktor pola.
+         * @param x pozycja x planszy.
+         * @param y pozycja y planszy.
+         */
         public Pole(int x, int y) {
             super(x,y,26, 25);
             this.x = x;
@@ -36,21 +44,5 @@ public class Plansza extends Parent{
             setFill(Color.LIGHTGRAY);
             setStroke(Color.BLACK);
         }
-
-        public Pole(int x, int y, Statek statek) {
-            super(x,y,26, 25);
-            this.x = x;
-            this.y = y;
-            this.statek=statek;
-            setFill(Color.LIGHTGRAY);
-            setStroke(Color.BLACK);
-            
-            
-            
-            
-            
-        }
-
     }
-
 }

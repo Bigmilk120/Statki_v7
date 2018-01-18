@@ -12,9 +12,15 @@ import javafx.scene.input.MouseEvent;
 import Statki.Main.*;
 
 import static javax.swing.text.StyleConstants.Background;
-
+/**
+ * Klasa obsługująca zdarzenia.
+ * @author Dimm
+ */
 public class Controller{
-
+    /**
+     * Funkcja służąca do włączania gry Gracz vs Komputer.
+     * @param actionEvent obsługuje kliknięcie w przycisk.
+     */
     public void handleButtonAction(javafx.event.ActionEvent actionEvent) {
         try{
            Statki.Main m = new Statki.Main();
@@ -24,6 +30,10 @@ public class Controller{
             System.out.println("Can't load window");
         }
     }
+    /**
+     * Funkcja służąca do włączania gry z pozycji Serwera.
+     * @param actionEvent obsługuje kliknięcie w przycisk.
+     */
     public void handleButtonAction2(javafx.event.ActionEvent actionEvent) {
         try{
           
@@ -34,6 +44,10 @@ public class Controller{
             System.out.println("Can't load window");
         }
     }
+    /**
+     * Funkcja służąca do włączania gry z pozycji Clienta.
+     * @param actionEvent obsługuje kliknięcie w przycisk.
+     */
     public void handleButtonAction3(javafx.event.ActionEvent actionEvent) {
         try{
            multiplayer.Client m = new multiplayer.Client();

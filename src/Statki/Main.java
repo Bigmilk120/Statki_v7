@@ -32,6 +32,10 @@ import static javafx.scene.input.MouseEvent.*;
 
 public class Main extends Application {
 
+    /**
+    *Inicjowanie zmiennych globalnych które są potrzebne do prawidłowego działania gry.
+    */
+    
     public ImageView tlo;
     public ImageView planszaI;
     public ImageView planszaII;
@@ -50,7 +54,9 @@ public class Main extends Application {
     int[][] Komputer = new int[12][12];
     int[][] Gracz = new int[12][12];
     
-
+    /**
+     * Funkcja pobiera parametr długości statku po czym losuje jego pozycje.
+     */
     void losuj_statek(int dl){
         Random r = new Random();
 
@@ -100,7 +106,9 @@ public class Main extends Application {
 
         }
     }
-
+    /**
+     * Funkcja ustawiająca statki komputera na planszy.
+     */
     public void ustawStatkiK(){
         losuj_statek(4);
 
@@ -113,7 +121,15 @@ public class Main extends Application {
         for(int i =0 ;i<4;i++)
         losuj_statek(1);
     }
-   
+   /**
+    * Funkcja sprawdzająca poprawność ustawienia pozycji przez gracza.
+    * @param x to pozycja x na planszy.
+    * @param y to pozycja y na planszy.
+    * @param dl to dlugosc statku.
+    * @param poziomo to zmienna sprawdzajaca czy statek jest poziomo czy pionowo.
+    * @param plansza to plansza na ktorej ma byc statek.
+    * @return zwraca wartosc true i false w zależności od przebiegu sprawdzenia.
+    */
     boolean sprawdz(int x,int y, int dl, boolean poziomo,VBox plansza){
         
         if(poziomo){
@@ -145,7 +161,14 @@ public class Main extends Application {
         }
         return true;
     }
-    
+    /**
+     * Funkcja sprawdzająca poprawność ustawienia pozycji przez komputer.
+     * @param x to pozycja x na planszy.
+     * @param y to pozycja y na planszy.
+     * @param dl to długość statku.
+     * @param kier to zmianna sprawdzająca kierunek (true dla poziomo, false dla pionowo)
+     * @return zwraca wartość true i false w zależności od przebiegu sprawdzenia. 
+     */
     boolean sprawdz(int x,int y, int dl, boolean kier){
  
         if(kier){
@@ -177,7 +200,10 @@ public class Main extends Application {
         }
         return true;
     }
-    
+    /**
+     * Funkcja ustawiająca planszę. Obsługuje listener na pola, który wywołuje funkcję sprawdz().
+     * Sprawdza również ilość statków które są na planszy.
+     */
     public void dodajPlanszeGracz(){
 
         planszaG = new VBox();
@@ -228,7 +254,10 @@ public class Main extends Application {
         planszaG.setPrefWidth(308);
 
     }
-
+    /**
+     * Funkcja ustawiająca planszę. Obsługuje listener na pola, który wywołuje funkcję sprawdz().
+     * Sprawdza również ilość statków które są na planszy.
+     */
     public void dodajPlanszeKomputer(){
 
         planszaK = new VBox();
@@ -265,7 +294,9 @@ public class Main extends Application {
         planszaK.setPrefWidth(308);
 
     }
-
+    /**
+     * Funkcja ustawiąca zdjęcia, w tym tło i plansze.
+     */
     private void ustawienieZdjec() {
         tlo = new ImageView();
         tlo.setImage(new Image(getClass().getResource("/obrazy/tlo.png").toExternalForm()));
@@ -290,11 +321,20 @@ public class Main extends Application {
         planszaII.setFitWidth(303.0);
         planszaII.setSmooth(false);
     }
-
+    /**
+     * Funkcja zwracająca pole, na podstawie parametrów x i y.
+     * @param x to pozycja x na planszy.
+     * @param y to pozycja y na planszy.
+     * @param plansza plansza z której pobieramy x i y.
+     * @return zwraca pole tego x i y.
+     */
     public Pole getPole(int x, int y,VBox plansza) {
         return (Pole)((HBox)plansza.getChildren().get(y)).getChildren().get(x);
     }
-    
+    /**
+     * Funkcja ma za zadanie dodanie obiektów graficznych do rodzica.
+     * @return zwraca głównego rodzica wszystkich innych obiektów.
+     */
     private Parent gvk(){
 
         BorderPane root = new BorderPane();
@@ -317,7 +357,10 @@ public class Main extends Application {
 
         return root;
     }
-    
+    /**
+     * Funkcja zarządza trafianiem gracza w pole komputera.
+     * @param e to event myszki.
+     */
     public void gra(MouseEvent e){
             Pole p=(Pole)e.getSource();
 
@@ -408,7 +451,9 @@ public class Main extends Application {
             }
 
         }
-    
+    /**
+     * Funkcja wywołująca się na końcu gry, informuje że gracz przegrał.
+     */
     public void przegrana(){
         
         napis = new ImageView();
@@ -420,7 +465,9 @@ public class Main extends Application {
         napis.setId("Przegrana"); 
         napis.setVisible(false);
     }
-    
+    /**
+     * Funkcja wywołująca się na końcu gry, informuje że gracz wygrał.
+     */
     public void wygrana(){
         
         napis2 = new ImageView();
@@ -433,7 +480,11 @@ public class Main extends Application {
         napis2.setVisible(false);
     }
     
-
+    /**
+     * Funkcja dziedziczona z klasy runnable
+     * @param primaryStage jest to stage potrzebny do stworzenia okna gry.
+     * @throws Exception rzuca wyjątki jeśli nie można otworzyć okna.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -447,7 +498,10 @@ public class Main extends Application {
         primaryStage.show();
         
     }
-
+    /**
+     * Główna klasa gry
+     * @param args parametr potrzebny do włączenia gry.
+     */
     public static void main(String[] args) {
         launch(args);
     }
