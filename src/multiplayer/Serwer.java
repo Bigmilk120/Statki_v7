@@ -23,28 +23,41 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 public class Serwer extends Application
 {
-    BorderPane root;
+    /**
+    *Inicjowanie zmiennych globalnych które są potrzebne do prawidłowego działania gry.
+    */
+    public BorderPane root;
     public ImageView tlo;
     public ImageView planszaI;
     public ImageView planszaII;
     private ImageView plansza_p;
-    ImageView napis;
-    ImageView napis2;
-    VBox planszaG;
-    VBox planszaK;
-    int typ;
-    int ilosc;
+    private ImageView napis;
+    private ImageView napis2;
+    private ImageView start_b; 
+    public VBox planszaG;
+    public VBox planszaK;
+    private int typ;
+    private int ilosc;
     public boolean tura_gracza=true;
-    int tura=0;
-    int wynik_przeciwnika=0;
+    private int tura=0;
+    private int wynik_przeciwnika=0;
     public int iloscPktZyciaGracza = 20;
     public int iloscPktZyciaPrzeciwnika = 20;
     public int ilosc_statkow=0;
-    ImageView start_b;
+
+    public int[][] Przeciwnik = new int[12][12];
+    public int[][] Gracz = new int[12][12];
     
-    int[][] Przeciwnik = new int[12][12];
-    int[][] Gracz = new int[12][12];
     
+    /**
+    * Funkcja sprawdzająca poprawność ustawienia pozycji przez gracza.
+    * @param x to pozycja x na planszy.
+    * @param y to pozycja y na planszy.
+    * @param dl to dlugosc statku.
+    * @param poziomo to zmienna sprawdzajaca czy statek jest poziomo czy pionowo.
+    * @param plansza to plansza na ktorej ma byc statek.
+    * @return zwraca wartosc true i false w zależności od przebiegu sprawdzenia.
+    */
     boolean sprawdz(int x,int y, int dl, boolean poziomo,VBox plansza){
         
         if(poziomo){
@@ -77,6 +90,12 @@ public class Serwer extends Application
         return true;
     }
     
+    /**
+     * Funkcja ustawiająca planszę. Obsługuje listener na pola, który wywołuje funkcję sprawdz().
+     * Sprawdza również ilość statków które są na planszy.
+     * Gdy gracz ustawi sowje statki na planszy zostaje nawiązanie z przeciwnikiem ( gdy wykona tą samą czynność ), 
+     * a następnie zostają przestłane pozycję statków gracza przeciwnikowi i równocześnie odbierane pozycje statków przeciwnika
+     */
     public void dodajPlanszeGracz(){
         
         planszaG = new VBox();
@@ -142,6 +161,12 @@ public class Serwer extends Application
 
     }
       
+     /**
+     * Funkcja ustawiająca planszę. Obsługuje listener który 'zarząda' grą tzn:
+     * po kliknieciu na dane pole przeciwnika warunek sprawdza czy dane pole
+     * nie zostalo juz wcześniej kliknięte, jesli nie: koloruje je na wskazany kolor
+     * oraz zlicza tury
+     */
     public void dodajPlanszePrzeciwnik(){
         
         planszaK = new VBox();
@@ -194,6 +219,9 @@ public class Serwer extends Application
             
     }
     
+    /**
+     * Funkcja ustawiąca zdjęcia, w tym tło i plansze.
+     */
     private void ustawienieZdjec() {
         tlo = new ImageView();
         tlo.setImage(new Image(getClass().getResource("/obrazy/tlo.png").toExternalForm()));
@@ -226,20 +254,23 @@ public class Serwer extends Application
         plansza_p.setFitWidth(269.0);
         plansza_p.setSmooth(false);
         
-        
-        start_b = new ImageView();
-        start_b.setImage(new Image(getClass().getResource("/obrazy/dzialaj.jpg").toExternalForm()));
-        start_b.setLayoutX(100.0);
-        start_b.setLayoutY(50.0);
-        start_b.setFitHeight(100);
-        start_b.setFitWidth(50);
-        start_b.setVisible(false);
     }
           
+    /**
+     * Funkcja zwracająca pole, na podstawie parametrów x i y.
+     * @param x to pozycja x na planszy.
+     * @param y to pozycja y na planszy.
+     * @param plansza plansza z której pobieramy x i y.
+     * @return zwraca pole tego x i y.
+     */
     public Plansza.Pole getPole(int x, int y,VBox plansza) {
         return (Plansza.Pole)((HBox)plansza.getChildren().get(y)).getChildren().get(x);
     }
     
+    /**
+     * Funkcja ma za zadanie dodanie obiektów graficznych do rodzica.
+     * @return zwraca głównego rodzica wszystkich innych obiektów.
+     */
     private Parent gvk(){
 
         root = new BorderPane();
@@ -263,27 +294,10 @@ public class Serwer extends Application
         return root;
 
     }
-    
-    /*public void gra(MouseEvent e){
-              Plansza.Pole p=(Plansza.Pole)e.getSource();
-
-              if(!getPole(p.x,p.y,planszaK).trafiony)
-                  if(Przeciwnik[p.x][p.y] == 1){
-                      getPole(p.x,p.y,planszaK).setFill(Color.RED);
-                      getPole(p.x,p.y,planszaK).trafiony = true;
-                      iloscPktZyciaPrzeciwnika--;
-                       if(iloscPktZyciaPrzeciwnika == 0 ) {
-
-                           napis2.setVisible(true); }
-                  }
-                  else{
-                      getPole(p.x,p.y,planszaK).setFill(Color.YELLOW);
-                      getPole(p.x,p.y,planszaK).trafiony = true;
-                      tura_gracza=false;
-                 }
-
-          } */
    
+    /**
+     * Funkcja wywołująca się na końcu gry, informuje że gracz przegrał.
+     */
     public void przegrana(){
         
         napis = new ImageView();
@@ -296,6 +310,9 @@ public class Serwer extends Application
         napis.setVisible(false);
     }
     
+    /**
+     * Funkcja wywołująca się na końcu gry, informuje że gracz wygrał.
+     */
     public void wygrana(){
         
         napis2 = new ImageView();
@@ -307,7 +324,12 @@ public class Serwer extends Application
         napis2.setId("Wygrana");    
         napis2.setVisible(false);
     }
-    
+   
+    /**
+     * Funkcja dziedziczona z klasy runnable
+     * @param primaryStage jest to stage potrzebny do stworzenia okna gry.
+     * @throws Exception rzuca wyjątki jeśli nie można otworzyć okna.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -320,12 +342,17 @@ public class Serwer extends Application
         primaryStage.show();
     }
     
+    /**
+     * Główna klasa gry
+     * @param args parametr potrzebny do włączenia gry.
+     */
     public static void main(String[] args) throws IOException { 
         launch(args);
     }              
     
     /**
-     * Zmienne i Metody do Multiplayer
+     * Zmienne potrzebne do nawiązania połączenie z przeciwnikiem oraz na 
+     * obsługę tego połącznia
     */
     
     ServerSocket sersock;
@@ -336,13 +363,18 @@ public class Serwer extends Application
     InputStream istream;
     BufferedReader receiveRead;
     
+    /**
+     * Funkcja służaca do nawiązania połączenia.
+     * Tworzony jest socket ktory 'nasłuchuje' sygnałów
+     * na podanym porcie.
+     * @throws Exception rzuca wyjątki gdy wystąpi bład w połączeniu
+     */
     void polaczenie() throws Exception{
         
         sersock = new ServerSocket(3000);
         sockS = sersock.accept();  
         
          System.out.println("Serwer dziala");
-        //sockC = new Socket("192.168.1.18", 3000);
 
         ostream = sockS.getOutputStream(); 
         pwrite = new PrintWriter(ostream, true);
@@ -352,6 +384,10 @@ public class Serwer extends Application
                
     }
     
+    /**
+     * Funkcja służąca do wysylania tablicy z pozycjami statków przeciwnikowi.
+     * @throws Exception rzuca wyjątki.
+     */
     void wysylanieTab()throws Exception{
         
         for(int i=1;i<=10;i++)
@@ -364,6 +400,10 @@ public class Serwer extends Application
  
         }
     
+    /**
+    * Funkcja służąca do odbierania tablicy z pozycjami statków przeciwnika.
+    * @throws Exception rzuca wyjątki.
+    */
     void odbieranieTab() throws Exception{
 
          
@@ -385,58 +425,19 @@ public class Serwer extends Application
          }
 
     }
-       
-    boolean odbieranieXY() throws Exception{
-           boolean trafiony = false;
-                Integer x;
-                Integer y;
-
-                x = Character.getNumericValue(receiveRead.read());
-                y= Character.getNumericValue(receiveRead.read());
-                
-                if(Gracz[x][y]!=1)
-                {
-                    getPole(x, y, planszaG).setFill(Color.YELLOW);
-                    tura_gracza=false;
-                    trafiony = false;
-                }     
-                else
-                {
-                  getPole(x, y, planszaG).setFill(Color.BLUE);
-                  trafiony = true;
-                }
-                   
-                
-                System.out.println(x+" "+y);   
-             return trafiony;
-        }
-        
-    void wysylanieXY(int x, int y) throws Exception{
-            
-            boolean trafiony = false;
-            
-            if(tura_gracza)
-            {
-            pwrite.print(x);
-            pwrite.print(y);
-            pwrite.flush();
-            
-                if(Przeciwnik[x][y]!=1)
-                    tura_gracza = false;
-                
-            }else{  
-                trafiony = true;
-                tura_gracza = true;
-            }
-        }    
-     
+    
+    /**
+     * Funkcja sprawdzająca kto jest zwycięzcą gry.
+     * Wysyła ilość tur gracza przeciwnikowi oraz odbiera od niego, jego ilość tur.
+     * Na tej podstawie wyswietlan odpowiedni komunikat na ekranie. 
+     * @throws IOException 
+     */
     void sprawdzanie_wygranej() throws IOException{
         sersock = new ServerSocket(3001);
         
         sockS = sersock.accept();  
         
          System.out.println("Serwer dziala");
-        //sockC = new Socket("192.168.1.18", 3000);
 
         ostream = sockS.getOutputStream(); 
         pwrite = new PrintWriter(ostream, true);

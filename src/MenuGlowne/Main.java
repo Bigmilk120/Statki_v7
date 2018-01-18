@@ -6,11 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 /**
  * Główna klasa gry, zawierająca główne menu.
  * @author Dimm
  */
 public class Main extends Application  {
+    
     /**
      * Funckja inicjująca menu główne.
      * @throws java.lang.Exception

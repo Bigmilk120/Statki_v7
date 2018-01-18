@@ -5,16 +5,31 @@ import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
+/**
+ * Klasa potrzebna do sprawdzania i tworzenia statków.
+ * @author Krzysztof Bigos i Damian Czyż
+ */
+
 public class Statek extends Parent{
 
+    /**
+     * Zmienne potrzebne do sprawdzania i tworzenia statków.
+     */
+    
     final private Integer typStatku;
     private boolean poziomo = true;
     private Integer iloscPkt;
-    private Double xMyszy;
-    private Double yMyszy;
-    public Pole Plansza[][] = new Pole[12][12];
-    public Pole Plansza_G[][] = new Pole[12][12];
 
+    
+    /**
+     * Funkcje sprawdzające czy można w danym miejscu na planszy stworzyć statek.
+     * @param x pozycja x statku na planszy.
+     * @param y pozycja y statku na planszy.
+     * @param dl długość statku.
+     * @param poziomo zmienna sprawdzająca czy statek jest poziomo czy pionowo.
+     * @param plansza referencja do klasy Serwer/Client
+     * @return zwraca czy można ustawić w danym miejscu statek.
+     */
     
     final boolean sprawdz(int x,int y, int dl, boolean poziomo,Serwer plansza){
         
@@ -78,7 +93,15 @@ public class Statek extends Parent{
         }
         return true;
     }
-
+    
+    /**
+     * Konstruktory tworzące nowy statek.
+     * @param typ zmienna zawierająca długość statki.
+     * @param poz zmienna sprawdzająca czy statek jest poziomo czy pionowo.
+     * @param event zmienna przechowująca event.
+     * @param plansza referenecja do klasy Serwer/Client.
+     */
+    
     public Statek(Integer typ, boolean poz,  MouseEvent event, Client plansza){
         this.typStatku = typ;
         this.poziomo = poz;

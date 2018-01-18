@@ -2,14 +2,11 @@ package Statki;
 
 import Statki.Plansza.Pole;
 import javafx.scene.Parent;
-//import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-//import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-//import javafx.scene.shape.Rectangle;
 /**
  * Klasa potrzebna do sprawdzania i tworzenia statków.
- * @author Dimm
+ * @author Krzysztof Bigos i Damian Czyż
  */
 public class Statek extends Parent{
 
@@ -19,10 +16,6 @@ public class Statek extends Parent{
     private final Integer typStatku;
     private boolean poziomo = true;
     private Integer iloscPkt;
-    private Double xMyszy;
-    private Double yMyszy;
-    public Pole Plansza[][] = new Pole[12][12];
-    public Pole Plansza_G[][] = new Pole[12][12];
 
     /**
      * Funkcja sprawdzająca czy można w danym miejscu na planszy stworzyć statek.
