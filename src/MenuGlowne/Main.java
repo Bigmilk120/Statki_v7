@@ -1,5 +1,6 @@
 package MenuGlowne;
 
+import static java.awt.SystemColor.window;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,6 +30,7 @@ public class Main extends Application  {
      * @param args zmienne dziedziczące z runnable, potrzebne do włączenia gry.
      */
     public static void main(String[] args) {
+        
         launch(args);
     }
 }
