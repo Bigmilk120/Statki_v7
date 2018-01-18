@@ -281,7 +281,6 @@ public class Serwer extends Application
         przegrana();
         wygrana();
         
-        root.getChildren().add(start_b);
         root.getChildren().add(tlo);
         root.getChildren().add(planszaI);
         root.getChildren().add(planszaII);

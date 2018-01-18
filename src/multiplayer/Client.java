@@ -275,8 +275,7 @@ public class Client extends Application{
         dodajPlanszeGracz();
         przegrana();
         wygrana();
-         
-        root.getChildren().add(start_b);
+        
         root.getChildren().add(tlo);
         root.getChildren().add(planszaI);
         root.getChildren().add(planszaII);
